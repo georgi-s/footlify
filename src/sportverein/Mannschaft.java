@@ -31,11 +31,36 @@ public class Mannschaft {
     
     private boolean aufstellungPruefen()
     {
-        return false;
+        if (feldspieler.length != 11) {
+            return false;
+        }
+
+        int verteidigerCount = 0;
+        int mittelfeldspielerCount = 0;
+        int stuermerCount = 0;
+
+        for (Spieler spieler : feldspieler) {
+            if (spieler instanceof Verteidiger) {
+                verteidigerCount++;
+            } else if (spieler instanceof Mittelfeldspieler) {
+                mittelfeldspielerCount++;
+            } else if (spieler instanceof Stuermer) {
+                stuermerCount++;
+            }
+        }
+
+        return verteidigerCount == formation.getVerteidigerAnzahl() &&
+                mittelfeldspielerCount == formation.getMittelfeldspielerAnzahl() &&
+                stuermerCount == formation.getStuermerAnzahl();
     }
     
-    private String mannschaftsbewertungAusgeben()
+    private Double mannschaftsbewertungAusgeben()
     {
-        return "Bewertung";
+        double bewertung = 0;
+        for (Spieler feldspieler : feldspieler) {
+            bewertung += feldspieler.spielerBewertung();
+        }
+
+        return Math.round((bewertung / 11) * 100.0) / 100.0;
     }
 }
