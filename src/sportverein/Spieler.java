@@ -39,6 +39,7 @@ public abstract class Spieler {
         return 0.0;
     }
 
+
     public String getNachname() {
         return nachname;
     }
@@ -109,5 +110,6 @@ public abstract class Spieler {
 
     public void setPlayerId(int playerId) {
         this.playerId = playerId;
+
     }
 }
