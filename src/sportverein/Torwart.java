@@ -3,11 +3,6 @@ package sportverein;
 
 import java.util.Date;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-
 /**
  *
  * @author mwiederspahn
@@ -37,6 +32,13 @@ public class Torwart extends Spieler {
     //spielerqoute ausgeben
     public double spielerBewertung()
     {
-        return 0.0;
+        double normGgtPS = (double) gegentore /super.getGespielteSpiele();
+        double normSOG  = (double) spieleOhneGegentor /super.getGespielteSpiele() ;
+        double gewichtungSOG = 4.0;
+        double gewichtungHaltequote = 3.0;
+        double gewichtungGgtPS = 3.0;
+        double bewertung = normGgtPS * gewichtungGgtPS + normSOG * gewichtungSOG+ haltequote * gewichtungHaltequote;
+
+        return (bewertung/(gewichtungSOG+gewichtungHaltequote+gewichtungGgtPS))*100;
     }
 }
