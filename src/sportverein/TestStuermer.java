@@ -14,7 +14,7 @@ public class TestStuermer {
         // Parameter: geschosseneTore, schussgenauigkeit, chancenverwertung, 
         //            nachname, vorname, geburtsdatum, gespielteSpiele, gesperrt, 
         //            vereinsbeitritt, roteKarten, gelbeKarten
-        Stuermer stuermer = new Stuermer(10, 0.7, 0.5, "Mueller", "Thomas",
+        Stuermer stuermer = new Stuermer(10, 0.7, 0.5, 1, "Mueller", "Thomas",
                                         geburtsdatum, 20, false, vereinsbeitritt, 1, 2);
 
         // Ausgabe der Spielerstatistik
