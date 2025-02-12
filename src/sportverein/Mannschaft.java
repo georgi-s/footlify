@@ -36,6 +36,6 @@ public class Mannschaft {
     
     private String mannschaftsbewertungAusgeben()
     {
-        return "Bewertung";
+            return "Bewertung";
     }
 }
