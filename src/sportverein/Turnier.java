@@ -29,17 +29,30 @@ public class Turnier {
     
     private void siegerFestlegen()
     {
-        
+        if (teilnehmer[0].mannschaftsbewertungAusgeben() > teilnehmer[1].mannschaftsbewertungAusgeben())
+        {
+            System.out.println("Die Mannschaft '" + teilnehmer[0].getName + "' hat gewonnen!");
+            preisGeldAuszahlen(teilnehmer[0], insgPreisgeld);
+        }
+        else if (teilnehmer[0].mannschaftsbewertungAusgeben() < teilnehmer[1].mannschaftsbewertungAusgeben())
+        {
+            System.out.println("Die Mannschaft '" + teilnehmer[1].getName + "' hat gewonnen!");
+            preisGeldAuszahlen(teilnehmer[1], insgPreisgeld);
+        }
+        else if (teilnehmer[0].mannschaftsbewertungAusgeben() == teilnehmer[1].mannschaftsbewertungAusgeben())
+        {
+            System.out.println("Unentschieden!");
+        }
     }
     
     private void preisGeldAuszahlen(Mannschaft team, int betrag)
     {
-        
+        System.out.println("Das Team" + team.getName + "erhaelt ein Preisgeld in Hoehe von " + betrag + " Euro!");
     }
     
     private void tunierAusspielen()
     {
-        
+        System.out.println("Das Turnier beginnt!");
     }
 
     public Mannschaft[] getTeilnehmer() {

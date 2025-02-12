@@ -47,7 +47,7 @@ public class Mannschaft {
                 stuermerCount == formation.getStuermerAnzahl();
     }
     
-    private Double mannschaftsbewertungAusgeben()
+    public Double mannschaftsbewertungAusgeben()
     {
         double bewertung = 0;
         for (Spieler feldspieler : feldspieler) {
