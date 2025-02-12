@@ -3,22 +3,14 @@ package sportverein;
 
 import java.util.Date;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 
-/**
- *
- * @author mwiederspahn
- */
 public class Verteidiger extends Spieler {
     private int geblockteAngriffe;
     private int gewonneneZweikaempfe;
     private double passqoute;
 
-    public Verteidiger(int geblockteAngriffe, int gewonneneZweikaempfe, double passqoute, String nachname, String vorname, Date geburtsdatum, int gespielteSpiele, boolean gesperrt, Date vereinsbeitritt, int roteKarten, int gelbeKarten) {
-        super(nachname, vorname, geburtsdatum, gespielteSpiele, gesperrt, vereinsbeitritt, roteKarten, gelbeKarten);
+    public Verteidiger(int geblockteAngriffe, int gewonneneZweikaempfe, double passqoute,int playerId, String nachname, String vorname, Date geburtsdatum, int gespielteSpiele, boolean gesperrt, Date vereinsbeitritt, int roteKarten, int gelbeKarten) {
+        super(playerId, nachname, vorname, geburtsdatum, gespielteSpiele, gesperrt, vereinsbeitritt, roteKarten, gelbeKarten);
         this.geblockteAngriffe = geblockteAngriffe;
         this.gewonneneZweikaempfe = gewonneneZweikaempfe;
         this.passqoute = passqoute;
@@ -28,7 +20,16 @@ public class Verteidiger extends Spieler {
     
     public String spielerstatistikAusgeben()
     {
-        return "Spielerdaten";
+        String statistik = "";
+        statistik += "Name: " + super.getVorname() + " " + super.getNachname() + "\n";
+        statistik += "Position: Verteidiger\n";
+        statistik += "Spiele: " + super.getGespielteSpiele() + "\n";
+        statistik += "gelbeKarten: " + super.getGelbeKarten() +"\n";
+        statistik += "roteKarten: " + super.getRoteKarten() +"\n";
+        statistik += "Geblockte Angriffe: " + geblockteAngriffe + "\n";
+        statistik += "gewonnene Zweikämpfe: " + gewonneneZweikaempfe + "\n";
+        statistik += "Passquote: " + passqoute + "\n";
+        return statistik;
     }
     
     @Override

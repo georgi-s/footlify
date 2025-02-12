@@ -3,16 +3,8 @@ package sportverein;
 
 import java.util.ArrayList;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-
-/**
- *
- * @author mwiederspahn
- */
 public class Mannschaft {
+    public int ClubId;
     private String name;
     String trainer;
     private Spieler[] feldspieler;
@@ -37,5 +29,13 @@ public class Mannschaft {
     private String mannschaftsbewertungAusgeben()
     {
             return "Bewertung";
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

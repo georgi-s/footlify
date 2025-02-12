@@ -3,16 +3,9 @@ package sportverein;
 
 import java.util.Date;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 
-/**
- *
- * @author mwiederspahn
- */
 public abstract class Spieler {
+    private int playerId;
     private String nachname;
     private String vorname;
     private Date geburtsdatum;
@@ -22,7 +15,8 @@ public abstract class Spieler {
     private int roteKarten;
     private int gelbeKarten;
 
-    public Spieler(String nachname, String vorname, Date geburtsdatum, int gespielteSpiele, boolean gesperrt, Date vereinsbeitritt, int roteKarten, int gelbeKarten) {
+    public Spieler(int playerId, String nachname, String vorname, Date geburtsdatum, int gespielteSpiele, boolean gesperrt, Date vereinsbeitritt, int roteKarten, int gelbeKarten) {
+        this.playerId = playerId;
         this.nachname = nachname;
         this.vorname = vorname;
         this.geburtsdatum = geburtsdatum;
@@ -107,5 +101,13 @@ public abstract class Spieler {
 
     public void setGelbeKarten(int gelbeKarten) {
         this.gelbeKarten = gelbeKarten;
+    }
+
+    public int getPlayerId() {
+        return playerId;
+    }
+
+    public void setPlayerId(int playerId) {
+        this.playerId = playerId;
     }
 }

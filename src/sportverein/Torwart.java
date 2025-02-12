@@ -3,18 +3,15 @@ package sportverein;
 
 import java.util.Date;
 
-/**
- *
- * @author mwiederspahn
- */
+
 public class Torwart extends Spieler {
 
     private int spieleOhneGegentor;
     private int gegentore;
     private double haltequote;
 
-    public Torwart(int spieleOhneGegentor, int gegentore, double haltequote, String nachname, String vorname, Date geburtsdatum, int gespielteSpiele, boolean gesperrt, Date vereinsbeitritt, int roteKarten, int gelbeKarten) {
-        super(nachname, vorname, geburtsdatum, gespielteSpiele, gesperrt, vereinsbeitritt, roteKarten, gelbeKarten);
+    public Torwart(int spieleOhneGegentor, int gegentore, double haltequote,int playerId, String nachname, String vorname, Date geburtsdatum, int gespielteSpiele, boolean gesperrt, Date vereinsbeitritt, int roteKarten, int gelbeKarten) {
+        super(playerId, nachname, vorname, geburtsdatum, gespielteSpiele, gesperrt, vereinsbeitritt, roteKarten, gelbeKarten);
         this.spieleOhneGegentor = spieleOhneGegentor;
         this.gegentore = gegentore;
         this.haltequote = haltequote;
@@ -24,7 +21,16 @@ public class Torwart extends Spieler {
     
     public String spielerstatistikAusgeben()
     {
-        return "Spielerdaten";
+        String statistik = "";
+        statistik += "Name: " + super.getVorname() + " " + super.getNachname() + "\n";
+        statistik += "Position: Torwart\n";
+        statistik += "Spiele: " + super.getGespielteSpiele() + "\n";
+        statistik += "gelbeKarten: " + super.getGelbeKarten() +"\n";
+        statistik += "roteKarten: " + super.getRoteKarten() +"\n";
+        statistik += "Spiele ohne Ggt: " + spieleOhneGegentor + "\n";
+        statistik += "Gegentore: " + gegentore + "\n";
+        statistik += "Haltequote: " + haltequote + "\n";
+        return statistik;
     }
     
     @Override
