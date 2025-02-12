@@ -2,26 +2,38 @@ package sportverein;
 
 import java.util.Date;
 
+
 public class Stuermer extends Spieler {
     private int geschosseneTore;
     private double schussgenauigkeit;
     private double chancenverwertung;
 
-    public Stuermer(int geschosseneTore, double schussgenauigkeit, double chancenverwertung,
-                    String nachname, String vorname, Date geburtsdatum, int gespielteSpiele,
-                    boolean gesperrt, Date vereinsbeitritt, int roteKarten, int gelbeKarten) {
-        super(nachname, vorname, geburtsdatum, gespielteSpiele, gesperrt, vereinsbeitritt, roteKarten, gelbeKarten);
-        this.geschosseneTore = geschosseneTore;
-        this.schussgenauigkeit = schussgenauigkeit;
-        this.chancenverwertung = chancenverwertung;
-    }
+
+    public Stuermer(int geschosseneTore, double schussgenauigkeit, double chancenverwertung,int playerId, String nachname, String vorname, Date geburtsdatum, int gespielteSpiele, boolean gesperrt, Date vereinsbeitritt, int roteKarten, int gelbeKarten) {
+        super(playerId,nachname, vorname, geburtsdatum, gespielteSpiele, gesperrt, vereinsbeitritt, roteKarten, gelbeKarten);
+
     
     public int getGeschosseneTore() {
         return geschosseneTore;
     }
     
+
     public double getSchussgenauigkeit() {
         return schussgenauigkeit;
+
+    public String spielerstatistikAusgeben()
+    {
+        String statistik = "";
+        statistik += "Name: " + super.getVorname() + " " + super.getNachname() + "\n";
+        statistik += "Position: Stürmer\n";
+        statistik += "Spiele: " + super.getGespielteSpiele() + "\n";
+        statistik += "gelbeKarten: " + super.getGelbeKarten() +"\n";
+        statistik += "roteKarten: " + super.getRoteKarten() +"\n";
+        statistik += "Tore: " + geschosseneTore + "\n";
+        statistik += "Schussgenauigkeit: " + schussgenauigkeit + "\n";
+        statistik += "Chancenverwertung: " + chancenverwertung + "\n";
+        return statistik;
+
     }
     
     public double getChancenverwertung() {

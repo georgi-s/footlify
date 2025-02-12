@@ -4,16 +4,8 @@ package sportverein;
 
 import java.util.ArrayList;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-
-/**
- *
- * @author mwiederspahn
- */
 public class Mannschaft {
+    public int ClubId;
     private String name;
     String trainer;
     private Spieler[] feldspieler;
@@ -32,11 +24,44 @@ public class Mannschaft {
     
     private boolean aufstellungPruefen()
     {
-        return false;
+        if (feldspieler.length != 11) {
+            return false;
+        }
+
+        int verteidigerCount = 0;
+        int mittelfeldspielerCount = 0;
+        int stuermerCount = 0;
+
+        for (Spieler spieler : feldspieler) {
+            if (spieler instanceof Verteidiger) {
+                verteidigerCount++;
+            } else if (spieler instanceof Mittelfeldspieler) {
+                mittelfeldspielerCount++;
+            } else if (spieler instanceof Stuermer) {
+                stuermerCount++;
+            }
+        }
+
+        return verteidigerCount == formation.getVerteidigerAnzahl() &&
+                mittelfeldspielerCount == formation.getMittelfeldspielerAnzahl() &&
+                stuermerCount == formation.getStuermerAnzahl();
     }
     
-    private String mannschaftsbewertungAusgeben()
+    private Double mannschaftsbewertungAusgeben()
     {
-        return "Bewertung";
+        double bewertung = 0;
+        for (Spieler feldspieler : feldspieler) {
+            bewertung += feldspieler.spielerBewertung();
+        }
+
+        return Math.round((bewertung / 11) * 100.0) / 100.0;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

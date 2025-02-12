@@ -41,4 +41,12 @@ public class Turnier {
     {
         
     }
+
+    public Mannschaft[] getTeilnehmer() {
+        return teilnehmer;
+    }
+
+    public void setTeilnehmer(Mannschaft[] teilnehmer) {
+        this.teilnehmer = teilnehmer;
+    }
 }
