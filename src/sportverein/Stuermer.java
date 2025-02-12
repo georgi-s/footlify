@@ -1,41 +1,66 @@
 package sportverein;
 
-
 import java.util.Date;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-
-/**
- *
- * @author mwiederspahn
- */
 public class Stuermer extends Spieler {
     private int geschosseneTore;
     private double schussgenauigkeit;
     private double chancenverwertung;
 
-    public Stuermer(int geschosseneTore, double schussgenauigkeit, double chancenverwertung, String nachname, String vorname, Date geburtsdatum, int gespielteSpiele, boolean gesperrt, Date vereinsbeitritt, int roteKarten, int gelbeKarten) {
+    public Stuermer(int geschosseneTore, double schussgenauigkeit, double chancenverwertung,
+                    String nachname, String vorname, Date geburtsdatum, int gespielteSpiele,
+                    boolean gesperrt, Date vereinsbeitritt, int roteKarten, int gelbeKarten) {
         super(nachname, vorname, geburtsdatum, gespielteSpiele, gesperrt, vereinsbeitritt, roteKarten, gelbeKarten);
         this.geschosseneTore = geschosseneTore;
         this.schussgenauigkeit = schussgenauigkeit;
         this.chancenverwertung = chancenverwertung;
     }
     
-    @Override
-    
-    public String spielerstatistikAusgeben()
-    {
-        return "Spielerdaten";
+    public int getGeschosseneTore() {
+        return geschosseneTore;
     }
     
-    @Override
+    public double getSchussgenauigkeit() {
+        return schussgenauigkeit;
+    }
     
-    //spielerqoute ausgeben
-    public double spielerBewertung()
-    {
-        return 0.0;
+    public double getChancenverwertung() {
+        return chancenverwertung;
+    }
+
+    public int getGespielteSpiele() {
+        // Hier rufen wir den (angenommen vorhandenen) Getter der Superklasse auf.
+        return super.getGespielteSpiele();
+    }
+
+    @Override
+    // Spielerquote ausgeben
+    public double spielerBewertung() {
+        int spiele = getGespielteSpiele();
+        double normToreProSpiel = 0.0;
+        if (spiele > 0) {
+            normToreProSpiel = ((double)getGeschosseneTore() / spiele) / 5.0;
+        }
+
+        double gewichtungTore = 5.0;
+        double gewichtungSchussgenauigkeit = 3.0;
+        double gewichtungChancenverwertung = 4.0;
+        
+        // Schritt 3: Berechnung der Bewertung (gewichtete Summe)
+        double bewertung = normToreProSpiel * gewichtungTore
+                         + getSchussgenauigkeit() * gewichtungSchussgenauigkeit
+                         + getChancenverwertung() * gewichtungChancenverwertung;
+
+        double gesamtGewichtung = gewichtungTore + gewichtungSchussgenauigkeit + gewichtungChancenverwertung;
+        bewertung = (bewertung / gesamtGewichtung) * 100.0;
+
+        return bewertung;
+    }
+
+    @Override
+    public String spielerstatistikAusgeben() {
+        return "Stürmerstatistik: Tore = " + getGeschosseneTore() +
+               ", Schussgenauigkeit = " + getSchussgenauigkeit() +
+               ", Chancenverwertung = " + getChancenverwertung();
     }
 }

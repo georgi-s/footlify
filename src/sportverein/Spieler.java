@@ -44,4 +44,9 @@ public abstract class Spieler {
     {
         return 0.0;
     }
+
+    public int getGespielteSpiele() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getGespielteSpiele'");
+    }
 }
