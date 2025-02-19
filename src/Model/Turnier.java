@@ -2,6 +2,7 @@
 package Model;
 
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /*
@@ -17,10 +18,10 @@ public class Turnier {
     private String ort;
     private Date datum;
     private int insgPreisgeld;
-    private Mannschaft[] teilnehmer;    //nur zwei Mannschaften
+    private ArrayList<Integer> teilnehmer;    //nur zwei Mannschaften
     private String siegerMannschaft;    //nicht im Constructor, da sieger nicht festgelegt werden soll
 
-    public Turnier(String ort, Date datum, int insgPreisgeld, Mannschaft[] teilnehmer) {
+    public Turnier(String ort, Date datum, int insgPreisgeld, ArrayList<Integer> teilnehmer) {
         this.ort = ort;
         this.datum = datum;
         this.insgPreisgeld = insgPreisgeld;
@@ -29,20 +30,20 @@ public class Turnier {
     
     private void siegerFestlegen()
     {
-        if (teilnehmer[0].mannschaftsbewertungAusgeben() > teilnehmer[1].mannschaftsbewertungAusgeben())
-        {
-            System.out.println("Die Mannschaft '" + teilnehmer[0].getName() + "' hat gewonnen!");
-            preisGeldAuszahlen(teilnehmer[0], insgPreisgeld);
-        }
-        else if (teilnehmer[0].mannschaftsbewertungAusgeben() < teilnehmer[1].mannschaftsbewertungAusgeben())
-        {
-            System.out.println("Die Mannschaft '" + teilnehmer[1].getName() + "' hat gewonnen!");
-            preisGeldAuszahlen(teilnehmer[1], insgPreisgeld);
-        }
-        else if (teilnehmer[0].mannschaftsbewertungAusgeben().equals(teilnehmer[1].mannschaftsbewertungAusgeben()))
-        {
-            System.out.println("Unentschieden!");
-        }
+        //if (teilnehmer[0].mannschaftsbewertungAusgeben() > teilnehmer[1].mannschaftsbewertungAusgeben())
+        //{
+        //    System.out.println("Die Mannschaft '" + teilnehmer[0].getName() + "' hat gewonnen!");
+        //    preisGeldAuszahlen(teilnehmer[0], insgPreisgeld);
+        //}
+        //else if (teilnehmer[0].mannschaftsbewertungAusgeben() < teilnehmer[1].mannschaftsbewertungAusgeben())
+        //{
+        //    System.out.println("Die Mannschaft '" + teilnehmer[1].getName() + "' hat gewonnen!");
+        //    preisGeldAuszahlen(teilnehmer[1], insgPreisgeld);
+        //}
+        //else if (teilnehmer[0].mannschaftsbewertungAusgeben().equals(teilnehmer[1].mannschaftsbewertungAusgeben()))
+        //{
+        //    System.out.println("Unentschieden!");
+        //}
     }
     
     private void preisGeldAuszahlen(Mannschaft team, int betrag)
@@ -55,11 +56,15 @@ public class Turnier {
         System.out.println("Das Turnier beginnt!");
     }
 
-    public Mannschaft[] getTeilnehmer() {
+    public ArrayList<Integer> getTeilnehmer() {
         return teilnehmer;
     }
 
-    public void setTeilnehmer(Mannschaft[] teilnehmer) {
-        this.teilnehmer = teilnehmer;
+    public void addTeilnehmer(int clubId) {
+        this.teilnehmer.add(clubId);
+    }
+
+    public void removeTeilnehmer(int clubId){
+        this.teilnehmer.remove(Integer.valueOf(clubId));
     }
 }

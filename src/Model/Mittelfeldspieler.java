@@ -4,6 +4,8 @@ package Model;
 
 import java.util.Date;
 
+import static java.lang.Math.round;
+
 
 public class Mittelfeldspieler extends Spieler {
     private int anzahlVorlagen;
@@ -44,7 +46,7 @@ public class Mittelfeldspieler extends Spieler {
         double gewAS = 4.0;
         double gewPQ = 3.0;
         double bewertung = normGPS * gewGPS + normAS * gewAS + passquote * gewPQ;
-        return (bewertung/(gewGPS+gewAS+gewPQ))*100;
+        return round((bewertung/(gewGPS+gewAS+gewPQ))*100);
     }
 
     public double getPassquote() {

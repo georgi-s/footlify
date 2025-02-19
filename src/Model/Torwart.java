@@ -4,6 +4,8 @@ package Model;
 
 import java.util.Date;
 
+import static java.lang.Math.round;
+
 
 public class Torwart extends Spieler {
 
@@ -46,7 +48,7 @@ public class Torwart extends Spieler {
         double gewichtungGgtPS = 3.0;
         double bewertung = normGgtPS * gewichtungGgtPS + normSOG * gewichtungSOG+ haltequote * gewichtungHaltequote;
 
-        return (bewertung/(gewichtungSOG+gewichtungHaltequote+gewichtungGgtPS))*100;
+        return round((bewertung/(gewichtungSOG+gewichtungHaltequote+gewichtungGgtPS))*100);
     }
 
     public int getSpieleOhneGegentor() {
