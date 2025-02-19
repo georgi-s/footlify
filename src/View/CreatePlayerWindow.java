@@ -31,13 +31,13 @@ public class CreatePlayerWindow extends JFrame {
         setSize(400, 600);
         setLayout(new GridLayout(0, 2));
 
-        String[] playerTypes = {"Verteidiger", "Stuermer", "Mittelfeldspieler", "Torwart"};
+        String[] playerTypes = {"Position auswählen", "Verteidiger", "Stuermer", "Mittelfeldspieler", "Torwart"};
         playerTypeComboBox = new JComboBox<>(playerTypes);
         playerTypeComboBox.addActionListener(e -> updateAdditionalFields());
         add(new JLabel("Player Type:"));
         add(playerTypeComboBox);
 
-        playerIdField = new JTextField("<html><i><font color='gray'>12345678</font></i></html>");
+        playerIdField = new JTextField("12345678");
         nachnameField = new JTextField("Nachname");
         vornameField = new JTextField("Vorname");
         geburtsdatumField = new JTextField("dd.MM.yyyy");
