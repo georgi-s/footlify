@@ -4,6 +4,8 @@ package sportverein;
 
 import java.util.Date;
 
+import static java.lang.Math.round;
+
 
 public class Verteidiger extends Spieler {
     private int geblockteAngriffe;
@@ -38,6 +40,14 @@ public class Verteidiger extends Spieler {
     //spielerqoute ausgeben
     public double spielerBewertung()
     {
-        return 0.0;
+        double gewGeb = 3.0;
+        double gewZK = 5.0;
+        double gewPQ = 2.0;
+
+        double normGeb = (double) geblockteAngriffe /getGespielteSpiele();
+        double normZK = (double) gewonneneZweikaempfe /getGespielteSpiele();
+        double bewertung = normGeb * gewGeb + normZK * gewZK + passqoute * gewPQ;
+
+        return round(bewertung/(gewGeb+gewZK+gewPQ)*100);
     }
 }

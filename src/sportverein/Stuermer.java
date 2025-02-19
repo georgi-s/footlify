@@ -2,6 +2,8 @@ package sportverein;
 
 import java.util.Date;
 
+import static java.lang.Math.round;
+
 public class Stuermer extends Spieler {
     private int geschosseneTore;
     private double schussgenauigkeit;
@@ -69,6 +71,6 @@ public class Stuermer extends Spieler {
         double gesamtGewichtung = gewichtungTore + gewichtungSchussgenauigkeit + gewichtungChancenverwertung;
         bewertung = (bewertung / gesamtGewichtung) * 100.0;
 
-        return bewertung;
+        return round(bewertung);
     }
 }

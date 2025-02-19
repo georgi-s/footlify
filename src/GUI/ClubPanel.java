@@ -24,6 +24,7 @@ public class ClubPanel extends JPanel {
     private JTextField TrainerField;
     private JComboBox<Formation> cboFormation;
     private JComboBox<Liga> cboLiga;
+    private JLabel scoreField;
 
     public ClubPanel() {
         //generate Testdata
@@ -226,9 +227,10 @@ public class ClubPanel extends JPanel {
         TrainerField = new JTextField();
         cboFormation = new JComboBox<Formation>(Formation.values());
         cboLiga = new JComboBox<Liga>(Liga.values());
-
+        scoreField = new JLabel();
         // Add combo boxes to a panel
-        JPanel comboBoxPanel = new JPanel(new GridLayout(1, 3, 5, 5));
+        JPanel comboBoxPanel = new JPanel(new GridLayout(1, 4, 5, 5));
+
 
         comboBoxPanel.add(TrainerField);
         TrainerField.addFocusListener(new FocusAdapter() {
@@ -257,6 +259,8 @@ public class ClubPanel extends JPanel {
                 }
             }
         });
+
+        comboBoxPanel.add(scoreField);
 
         comboBoxPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         // Add the comboBoxPanel to the centerPanel
@@ -311,7 +315,9 @@ public class ClubPanel extends JPanel {
             sportverein.Spieler player = getPlayerById(playerId);
             targetModel.addRow(new Object[]{player.getPlayerId(), player.getVorname(), player.getNachname(), player.getClass().getSimpleName(), player.spielerBewertung()});
             sourceModel.removeRow(selectedRows[i]);
+            scoreField.setText("Mannschaftsbewertung: " + mannschaftsbewertungAusgeben(club.getClubId()));
         }
+
     }
 
     private void loadPlayers(int clubId) {
@@ -329,6 +335,7 @@ public class ClubPanel extends JPanel {
         }
 
 
+        scoreField.setText("Mannschaftsbewertung: " + mannschaftsbewertungAusgeben(clubId));
     }
 
     private void loadData(int clubId){
@@ -336,6 +343,7 @@ public class ClubPanel extends JPanel {
         TrainerField.setText(club.getTrainer());
         cboFormation.setSelectedItem(club.getFormation());
         cboLiga.setSelectedItem(club.getLiga());
+        scoreField.setText("Mannschaftsbewertung: " + mannschaftsbewertungAusgeben(clubId));
     }
 
     public sportverein.Mannschaft getSelectedClub() {
@@ -396,4 +404,18 @@ public class ClubPanel extends JPanel {
                 mittelfeldspielerCount == formation.getMittelfeldspielerAnzahl() &&
                 stuermerCount == formation.getStuermerAnzahl();
     }
+    public Double mannschaftsbewertungAusgeben(int clubId)
+    {
+        return mannschaftsbewertungAusgeben(getClubById(clubId).getFeldspieler());
+    }
+    public Double mannschaftsbewertungAusgeben(ArrayList<Integer> feldspieler)
+    {
+        double bewertung = 0;
+        for (int playerId : feldspieler) {
+            bewertung += getPlayerById(playerId).spielerBewertung();
+        }
+
+        return Math.round((bewertung / 11) * 100.0) / 100.0;
+    }
+
 }

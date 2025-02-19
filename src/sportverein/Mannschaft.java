@@ -24,15 +24,7 @@ public class Mannschaft {
     }
 
     
-    public Double mannschaftsbewertungAusgeben()
-    {
-        double bewertung = 0;
-        //for (Spieler feldspieler : feldspieler) {
-        //    bewertung += feldspieler.spielerBewertung();
-        //}
 
-        return Math.round((bewertung / 11) * 100.0) / 100.0;
-    }
     public int getClubId() {
         return ClubId;
     }
