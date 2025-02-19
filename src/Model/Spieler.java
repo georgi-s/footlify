@@ -1,4 +1,4 @@
-package sportverein;
+package Model;
 
 
 import java.util.Date;
@@ -111,5 +111,10 @@ public abstract class Spieler {
     public void setPlayerId(int playerId) {
         this.playerId = playerId;
 
+    }
+
+    @Override
+    public String toString() {
+        return getVorname() + " " + getNachname();
     }
 }

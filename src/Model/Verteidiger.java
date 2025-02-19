@@ -1,5 +1,5 @@
 // pfad: STDM_GruppeC_SCPM06/src/sportverein/Verteidiger.java
-package sportverein;
+package Model;
 
 
 import java.util.Date;
@@ -39,5 +39,29 @@ public class Verteidiger extends Spieler {
     public double spielerBewertung()
     {
         return 0.0;
+    }
+
+    public int getGeblockteAngriffe() {
+        return geblockteAngriffe;
+    }
+
+    public void setGeblockteAngriffe(int geblockteAngriffe) {
+        this.geblockteAngriffe = geblockteAngriffe;
+    }
+
+    public int getGewonneneZweikaempfe() {
+        return gewonneneZweikaempfe;
+    }
+
+    public void setGewonneneZweikaempfe(int gewonneneZweikaempfe) {
+        this.gewonneneZweikaempfe = gewonneneZweikaempfe;
+    }
+
+    public double getPassqoute() {
+        return passqoute;
+    }
+
+    public void setPassqoute(double passqoute) {
+        this.passqoute = passqoute;
     }
 }
