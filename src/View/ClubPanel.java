@@ -1,6 +1,6 @@
 package View;
 
-import sportverein.*;
+import Model.*;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -137,7 +137,7 @@ public class ClubPanel extends JPanel {
 
         setLayout(new BorderLayout());
 
-        clubComboBox = new JComboBox<sportverein.Mannschaft>(clubs.toArray(new sportverein.Mannschaft[0]));
+        clubComboBox = new JComboBox<Model.Mannschaft>(clubs.toArray(new Model.Mannschaft[0]));
 
         add(clubComboBox, BorderLayout.NORTH);
 
@@ -314,9 +314,9 @@ public class ClubPanel extends JPanel {
         int[] selectedRows = sourceTable.getSelectedRows();
         for (int i = selectedRows.length - 1; i >= 0; i--) {
             int playerId = (int) sourceModel.getValueAt(selectedRows[i], 0);
-            sportverein.Mannschaft club = getSelectedClub();
+            Model.Mannschaft club = getSelectedClub();
             club.transferPlayer(playerId);
-            sportverein.Spieler player = getPlayerById(playerId);
+            Model.Spieler player = getPlayerById(playerId);
             targetModel.addRow(new Object[]{player.getPlayerId(), player.getVorname(), player.getNachname(), player.getClass().getSimpleName(), player.spielerBewertung()});
             sourceModel.removeRow(selectedRows[i]);
             scoreField.setText("Mannschaftsbewertung: " + mannschaftsbewertungAusgeben(club.getClubId()));
@@ -327,13 +327,13 @@ public class ClubPanel extends JPanel {
         availableModel.setRowCount(0);
         selectedModel.setRowCount(0);
         //get club by clubId
-        sportverein.Mannschaft club = getClubById(clubId);
+        Model.Mannschaft club = getClubById(clubId);
         for(int playerId : club.getAuswechselspieler()) {
-            sportverein.Spieler player = getPlayerById(playerId);
+            Model.Spieler player = getPlayerById(playerId);
             availableModel.addRow(new Object[]{player.getPlayerId(), player.getVorname(), player.getNachname(), player.getClass().getSimpleName(), player.spielerBewertung()});
         }
         for(int playerId : club.getFeldspieler()) {
-            sportverein.Spieler player = getPlayerById(playerId);
+            Model.Spieler player = getPlayerById(playerId);
             selectedModel.addRow(new Object[]{player.getPlayerId(), player.getVorname(), player.getNachname(), player.getClass().getSimpleName(), player.spielerBewertung()});
         }
 
@@ -349,11 +349,11 @@ public class ClubPanel extends JPanel {
         scoreField.setText("Mannschaftsbewertung: " + mannschaftsbewertungAusgeben(clubId));
     }
 
-    public sportverein.Mannschaft getSelectedClub() {
+    public Model.Mannschaft getSelectedClub() {
         Mannschaft selectedClub = (Mannschaft) clubComboBox.getSelectedItem();
         assert selectedClub != null;
         int clubId = selectedClub.getClubId();
-        for(sportverein.Mannschaft club : clubs) {
+        for(Model.Mannschaft club : clubs) {
             if (club.getClubId() == clubId) {
                 return club;
             }
@@ -361,8 +361,8 @@ public class ClubPanel extends JPanel {
         return null;
     }
 
-    public sportverein.Mannschaft getClubById(int clubId){
-        for(sportverein.Mannschaft club : clubs){
+    public Model.Mannschaft getClubById(int clubId){
+        for(Model.Mannschaft club : clubs){
             if(club.getClubId() == clubId){
                 return club;
             }
@@ -370,8 +370,8 @@ public class ClubPanel extends JPanel {
         return null;
     }
 
-    public sportverein.Spieler getPlayerById(int playerId){
-            for(sportverein.Spieler player : players){
+    public Model.Spieler getPlayerById(int playerId){
+            for(Model.Spieler player : players){
             if(player.getPlayerId() == playerId){
                 return player;
             }
@@ -379,7 +379,7 @@ public class ClubPanel extends JPanel {
         return null; }
 
     private boolean aufstellungPruefen(int clubId) {
-        sportverein.Mannschaft club = getClubById(clubId);
+        Model.Mannschaft club = getClubById(clubId);
         return aufstellungPruefen(club.getFeldspieler(), club.getFormation());
     }
     private boolean aufstellungPruefen(ArrayList<Integer> feldspieler, Formation formation)
@@ -393,7 +393,7 @@ public class ClubPanel extends JPanel {
         int stuermerCount = 0;
 
         for (int spielerId : feldspieler) {
-            sportverein.Spieler spieler = getPlayerById(spielerId);
+            Model.Spieler spieler = getPlayerById(spielerId);
             if (spieler instanceof Verteidiger) {
                 verteidigerCount++;
             } else if (spieler instanceof Mittelfeldspieler) {

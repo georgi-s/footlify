@@ -13,7 +13,7 @@ public class MainFrame extends JFrame {
     public MainFrame(DataModel dataModel) {
         setTitle("Club Selector");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(600, 400);
+        setSize(800, 400);
         setLayout(new BorderLayout());
 
         this.dataModel = dataModel;
