@@ -1,5 +1,5 @@
 // pfad: STDM_GruppeC_SCPM06/src/sportverein/Manschaft.java
-package sportverein;
+package Model;
 
 
 import java.util.ArrayList;

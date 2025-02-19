@@ -1,4 +1,4 @@
-package sportverein;
+package Model;
 
 import java.util.Date;
 

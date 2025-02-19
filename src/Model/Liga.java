@@ -1,5 +1,5 @@
 // pfad: STDM_GruppeC_SCPM06/src/sportverein/Liga.java
-package sportverein;
+package Model;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license

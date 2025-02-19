@@ -1,4 +1,4 @@
-package sportverein;
+package Model;
 
 import java.util.Date;
 
@@ -70,5 +70,17 @@ public class Stuermer extends Spieler {
         bewertung = (bewertung / gesamtGewichtung) * 100.0;
 
         return bewertung;
+    }
+
+    public void setGeschosseneTore(int geschosseneTore) {
+        this.geschosseneTore = geschosseneTore;
+    }
+
+    public void setSchussgenauigkeit(double schussgenauigkeit) {
+        this.schussgenauigkeit = schussgenauigkeit;
+    }
+
+    public void setChancenverwertung(double chancenverwertung) {
+        this.chancenverwertung = chancenverwertung;
     }
 }

@@ -1,5 +1,5 @@
 // pfad: STDM_GruppeC_SCPM06/src/sportverein/Torwart.java
-package sportverein;
+package Model;
 
 
 import java.util.Date;
@@ -47,5 +47,29 @@ public class Torwart extends Spieler {
         double bewertung = normGgtPS * gewichtungGgtPS + normSOG * gewichtungSOG+ haltequote * gewichtungHaltequote;
 
         return (bewertung/(gewichtungSOG+gewichtungHaltequote+gewichtungGgtPS))*100;
+    }
+
+    public int getSpieleOhneGegentor() {
+        return spieleOhneGegentor;
+    }
+
+    public void setSpieleOhneGegentor(int spieleOhneGegentor) {
+        this.spieleOhneGegentor = spieleOhneGegentor;
+    }
+
+    public int getGegentore() {
+        return gegentore;
+    }
+
+    public void setGegentore(int gegentore) {
+        this.gegentore = gegentore;
+    }
+
+    public double getHaltequote() {
+        return haltequote;
+    }
+
+    public void setHaltequote(double haltequote) {
+        this.haltequote = haltequote;
     }
 }

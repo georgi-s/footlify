@@ -1,9 +1,11 @@
-package GUI;
+package View;
+
+import Model.DataModel;
 
 import javax.swing.*;
 
-public class TurnierPanel extends JPanel {
-    public TurnierPanel() {
+public class TurnierMenu extends JPanel {
+    public TurnierMenu(DataModel dataModel) {
         // Initialize Turnier related components
     }
 

@@ -1,15 +1,18 @@
-package GUI;
+package View;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import Model.DataModel;
 
 public class ClubPanel extends JPanel {
     private JComboBox<String> clubComboBox;
     private DefaultTableModel availableModel;
     private DefaultTableModel selectedModel;
+    private DataModel dataModel;
 
-    public ClubPanel() {
+    public ClubPanel(DataModel dataModel) {
+        this.dataModel = dataModel;
         setLayout(new BorderLayout());
 
         clubComboBox = new JComboBox<>(new String[]{"Club A", "Club B", "Club C"});

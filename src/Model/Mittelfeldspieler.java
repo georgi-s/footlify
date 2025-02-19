@@ -1,5 +1,5 @@
 // pfad: STDM_GruppeC_SCPM06/src/sportverein/Mittelfeld.java
-package sportverein;
+package Model;
 
 
 import java.util.Date;
@@ -45,5 +45,29 @@ public class Mittelfeldspieler extends Spieler {
         double gewPQ = 3.0;
         double bewertung = normGPS * gewGPS + normAS * gewAS + passquote * gewPQ;
         return (bewertung/(gewGPS+gewAS+gewPQ))*100;
+    }
+
+    public double getPassquote() {
+        return passquote;
+    }
+
+    public void setPassquote(double passquote) {
+        this.passquote = passquote;
+    }
+
+    public int getTore() {
+        return tore;
+    }
+
+    public void setTore(int tore) {
+        this.tore = tore;
+    }
+
+    public int getAnzahlVorlagen() {
+        return anzahlVorlagen;
+    }
+
+    public void setAnzahlVorlagen(int anzahlVorlagen) {
+        this.anzahlVorlagen = anzahlVorlagen;
     }
 }
