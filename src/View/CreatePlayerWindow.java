@@ -7,6 +7,8 @@ import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
+
 import Model.*;
 
 public class CreatePlayerWindow extends JFrame {
@@ -37,7 +39,7 @@ public class CreatePlayerWindow extends JFrame {
         add(new JLabel("Player Type:"));
         add(playerTypeComboBox);
 
-        playerIdField = new JTextField("12345678");
+        playerIdField = new JTextField(UUID.randomUUID().toString());
         nachnameField = new JTextField("Nachname");
         vornameField = new JTextField("Vorname");
         geburtsdatumField = new JTextField("dd.MM.yyyy");
@@ -110,7 +112,7 @@ public class CreatePlayerWindow extends JFrame {
 
     private void createPlayer() {
         try {
-            int playerId = Integer.parseInt(playerIdField.getText());
+            UUID playerId = UUID.fromString(playerIdField.getText());
             String nachname = nachnameField.getText();
             String vorname = vornameField.getText();
             Date geburtsdatum = dateFormat.parse(geburtsdatumField.getText());

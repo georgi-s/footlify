@@ -3,17 +3,18 @@ package Model;
 
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class Mannschaft {
-    public int ClubId;
+    public UUID ClubId;
     private String name;
     String trainer;
-    private ArrayList<Integer> feldspieler;
-    private ArrayList<Integer> auswechselspieler;
+    private ArrayList<UUID> feldspieler;
+    private ArrayList<UUID> auswechselspieler;
     private Formation formation;
     private Liga liga;
 
-    public Mannschaft(int clubId,String name, String trainer, ArrayList<Integer> feldspieler, ArrayList<Integer> auswechselspieler, Formation formation, Liga liga) {
+    public Mannschaft(UUID clubId,String name, String trainer, ArrayList<UUID> feldspieler, ArrayList<UUID> auswechselspieler, Formation formation, Liga liga) {
         this.ClubId = clubId;
         this.name = name;
         this.trainer = trainer;
@@ -25,7 +26,7 @@ public class Mannschaft {
 
     
 
-    public int getClubId() {
+    public UUID getClubId() {
         return ClubId;
     }
 
@@ -37,28 +38,36 @@ public class Mannschaft {
         this.name = name;
     }
 
-    public ArrayList<Integer> getAuswechselspieler(){
+    public ArrayList<UUID> getAuswechselspieler(){
         return auswechselspieler;
     }
 
-    public ArrayList<Integer> getFeldspieler(){
+    public void setFeldspieler(ArrayList<UUID> feldspieler) {
+        this.feldspieler = feldspieler;
+    }
+
+    public void setAuswechselspieler(ArrayList<UUID> auswechselspieler) {
+        this.auswechselspieler = auswechselspieler;
+    }
+
+    public ArrayList<UUID> getFeldspieler(){
         return feldspieler;
     }
 
-    public void addAuswechselspieler(int playerId){
+    public void addAuswechselspieler(UUID playerId){
         this.auswechselspieler.add(playerId);
     }
-    public void addFeldspieler(int playerId){
+    public void addFeldspieler(UUID playerId){
         this.feldspieler.add(playerId);
     }
 
-    public void transferPlayer(int playerId){
+    public void transferPlayer(UUID playerId){
         if(feldspieler.contains(playerId)){
-            feldspieler.remove(Integer.valueOf(playerId));
+            feldspieler.remove(playerId);
             auswechselspieler.add(playerId);
         }
         else{
-            auswechselspieler.remove(Integer.valueOf(playerId));
+            auswechselspieler.remove(playerId);
             feldspieler.add(playerId);
         }
     }
