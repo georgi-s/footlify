@@ -4,6 +4,7 @@ package Model;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.UUID;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -15,18 +16,22 @@ import java.util.Date;
  * @author mwiederspahn
  */
 public class Turnier {
+
+    private UUID turnierId;
     private String ort;
-    private Date datum;
+    private String datum;
     private int insgPreisgeld;
-    private ArrayList<Integer> teilnehmer;    //nur zwei Mannschaften
+    private ArrayList<UUID> teilnehmer;    //nur zwei Mannschaften
     private String siegerMannschaft;    //nicht im Constructor, da sieger nicht festgelegt werden soll
 
-    public Turnier(String ort, Date datum, int insgPreisgeld, ArrayList<Integer> teilnehmer) {
+    public Turnier(String ort, String datum, int insgPreisgeld, ArrayList<UUID> teilnehmer) {
+        this.turnierId = UUID.randomUUID();
         this.ort = ort;
         this.datum = datum;
         this.insgPreisgeld = insgPreisgeld;
         this.teilnehmer = teilnehmer;
     }
+
     
     private void siegerFestlegen()
     {
@@ -56,16 +61,39 @@ public class Turnier {
         System.out.println("Das Turnier beginnt!");
     }
 
-    public ArrayList<Integer> getTeilnehmer() {
+    public ArrayList<UUID> getTeilnehmer() {
         return teilnehmer;
     }
 
-    public void addTeilnehmer(int clubId) {
+    public void addTeilnehmer(UUID clubId) {
         this.teilnehmer.add(clubId);
     }
 
     public void removeTeilnehmer(int clubId){
         this.teilnehmer.remove(Integer.valueOf(clubId));
+    }
+
+    public UUID getTurnierId() {
+        return turnierId;
+    }
+
+    public String getOrt() {
+        return ort;
+    }
+
+    public String getDate() {
+        return datum.toString();
+    }
+
+    public int getInsgPreisgeld() {
+        return insgPreisgeld;
+    }
+
+    public void editTurnier(String ort, String datum, int insgPreisgeld, ArrayList<UUID> teilnehmer) {
+        this.ort = ort;
+        this.datum = datum;
+        this.insgPreisgeld = insgPreisgeld;
+        this.teilnehmer = teilnehmer;
     }
 
     @Override

@@ -1,11 +1,29 @@
 package View;
+import Model.DataModel;
+import Model.Mannschaft;
+import Model.Turnier;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Locale;
+import java.util.UUID;
 
 public class CreateTurnierFrame extends JFrame {
-    public CreateTurnierFrame(){
+    private JComboBox<Mannschaft> mannschaft1Box;
+    private JComboBox<Mannschaft> mannschaft2Box;
+    private DataModel dataModel;
+    public CreateTurnierFrame(DataModel dM) {
+        this.dataModel = dM;
+
         setTitle("Turnier erstellen");
-        //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(600, 400);
 
         // Use a GridBagLayout for the main panel
@@ -25,11 +43,11 @@ public class CreateTurnierFrame extends JFrame {
         JTextField preisgeldField = new JTextField();
         preisgeldField.setPreferredSize(new Dimension(100, 20));
 
-        JLabel mannschaft1 = new JLabel("Mannschaft 1");
-        JComboBox<String> mannschaft1Box = new JComboBox<>();
+            JLabel mannschaft1 = new JLabel("Mannschaft 1");
+        mannschaft1Box = new JComboBox<>(dataModel.getMannschaftList().toArray(new Mannschaft[0]));
         mannschaft1Box.setPreferredSize(new Dimension(100, 20));
         JLabel mannschaft2 = new JLabel("Mannschaft 2");
-        JComboBox<String> mannschaft2Box = new JComboBox<>();
+        mannschaft2Box = new JComboBox<>(dataModel.getMannschaftList().toArray(new Mannschaft[0]));
         mannschaft2Box.setPreferredSize(new Dimension(100, 20));
 
         // Add components to the panel with GridBagConstraints
@@ -65,6 +83,29 @@ public class CreateTurnierFrame extends JFrame {
         // Create and add the button to the frame
         JButton createButton = new JButton("Create");
         add(createButton, BorderLayout.SOUTH);
+
+        // Add action listener to the button
+        createButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ArrayList<UUID> mannschaften = new ArrayList<>();
+
+                Mannschaft Mannschaft =  (Mannschaft) mannschaft1Box.getSelectedItem();
+                assert Mannschaft != null;
+                mannschaften.add(Mannschaft.ClubId);
+                Mannschaft = null;
+                Mannschaft =  (Mannschaft) mannschaft2Box.getSelectedItem();
+                assert Mannschaft != null;
+                mannschaften.add(Mannschaft.ClubId);
+
+
+
+                dataModel.addTurnier(new Turnier(ortField.getText(), datumField.getText(), Integer.parseInt(preisgeldField.getText()), mannschaften));
+                JOptionPane.showMessageDialog(CreateTurnierFrame.this, "Turnier erstellt", "Info", JOptionPane.INFORMATION_MESSAGE);
+
+                dispose();
+            }
+        });
 
         // Make the frame visible
         //setVisible(true);

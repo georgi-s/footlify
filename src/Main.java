@@ -9,13 +9,13 @@ public class Main {
         try {
             System.setProperty("flatlaf.useWindowDecorations", "True");
             System.setProperty("flatlaf.menuBarEmbedded", "True");
-        FlatDarkLaf.setup();
+            FlatDarkLaf.setup();
 
-        SwingUtilities.invokeLater(() -> {
-            DataModel dataModel = new DataModel();
-            MainFrame mainFrame = new MainFrame(dataModel);
-            mainFrame.setVisible(true);
-        });
+            SwingUtilities.invokeLater(() -> {
+                DataModel dataModel = new DataModel();
+                MainFrame mainFrame = new MainFrame(dataModel);
+                mainFrame.setVisible(true);
+            });
         }
         catch (Exception e) {
             JOptionPane.showMessageDialog(null, "An error occurred while initializing the application. Please try again later.", "Error", JOptionPane.ERROR_MESSAGE);

@@ -200,8 +200,19 @@ public class ClubPanel extends JPanel {
 
         String[] columnNames = {"ID","Vorname", "Nachname", "Position", "Bewertung"};
         availableModel = new DefaultTableModel(columnNames, 0);
+        availableModel = new DefaultTableModel(columnNames, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // All cells are not editable
+            }
+        };
         selectedModel = new DefaultTableModel(columnNames, 0);
-
+        selectedModel = new DefaultTableModel(columnNames, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // All cells are not editable
+            }
+        };
         JTable availableTable = new JTable(availableModel);
         JTable selectedTable = new JTable(selectedModel);
 

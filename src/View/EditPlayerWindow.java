@@ -29,6 +29,12 @@ public class EditPlayerWindow extends JFrame {
                     listModel.addElement(player);
                 }
             }
+            for (UUID playerId : selectedClub.getAuswechselspieler()) {
+                Spieler player = dataModel.getSpielerById(playerId);
+                if (player != null) {
+                    listModel.addElement(player);
+                }
+            }
         }
 
         playerList = new JList<>(listModel);

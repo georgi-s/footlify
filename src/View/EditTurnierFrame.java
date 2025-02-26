@@ -1,10 +1,31 @@
 package View;
 
+import Model.DataModel;
+import Model.Mannschaft;
+import Model.Turnier;
+
 import javax.swing.*;
+import javax.xml.crypto.Data;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 public class EditTurnierFrame extends JFrame {
-    public EditTurnierFrame(){
+    private DataModel dataModel;
+    private JComboBox<Turnier> turnierBox;
+    private JComboBox<Mannschaft> mannschaft1Box;
+    private JComboBox<Mannschaft> mannschaft2Box;
+    private Turnier selectedTurnier;
+    public EditTurnierFrame(DataModel dM) {
+        this.dataModel = dM;
         setTitle("Turnier editieren");
         setSize(600, 400);
 
@@ -22,9 +43,10 @@ public class EditTurnierFrame extends JFrame {
 
         gbc.gridx = 1;
         gbc.gridy = 0;
-        JComboBox<String> turnierBox = new JComboBox<>();
+        turnierBox= new JComboBox<>(dataModel.getTurnierList().toArray(new Turnier[0]));
         turnierBox.setPreferredSize(new Dimension(200, 20));
         panel.add(turnierBox, gbc);
+
 
         gbc.gridx = 0;
         gbc.gridy = 1;
@@ -62,7 +84,7 @@ public class EditTurnierFrame extends JFrame {
 
         gbc.gridx = 1;
         gbc.gridy = 4;
-        JComboBox<String> mannschaft1Box = new JComboBox<>();
+        mannschaft1Box = new JComboBox<>(dataModel.getMannschaftList().toArray(new Mannschaft[0]));
         mannschaft1Box.setPreferredSize(new Dimension(100, 20));
         panel.add(mannschaft1Box, gbc);
 
@@ -72,7 +94,7 @@ public class EditTurnierFrame extends JFrame {
 
         gbc.gridx = 1;
         gbc.gridy = 5;
-        JComboBox<String> mannschaft2Box = new JComboBox<>();
+        mannschaft2Box = new JComboBox<>(dataModel.getMannschaftList().toArray(new Mannschaft[0]));
         mannschaft2Box.setPreferredSize(new Dimension(100, 20));
         panel.add(mannschaft2Box, gbc);
 
@@ -85,6 +107,50 @@ public class EditTurnierFrame extends JFrame {
 
         // Add the panel to the frame
         add(panel);
+
+        // Add action listener to the button
+        speichernButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ArrayList<UUID> mannschaften = new ArrayList<>();
+
+                Mannschaft Mannschaft =  (Mannschaft) mannschaft1Box.getSelectedItem();
+                assert Mannschaft != null;
+                mannschaften.add(Mannschaft.ClubId);
+                Mannschaft = null;
+                Mannschaft =  (Mannschaft) mannschaft2Box.getSelectedItem();
+                assert Mannschaft != null;
+                mannschaften.add(Mannschaft.ClubId);
+
+
+
+                dataModel.getTurnierById(selectedTurnier.getTurnierId()).editTurnier(ortField.getText(),datumField.getText(), Integer.parseInt(preisgeldField.getText()), mannschaften);
+                JOptionPane.showMessageDialog(EditTurnierFrame.this, "Turnier editieren", "Info", JOptionPane.INFORMATION_MESSAGE);
+
+                dispose();
+            }
+        });
+
+        turnierBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                selectedTurnier = (Turnier) turnierBox.getSelectedItem();
+                assert selectedTurnier != null;
+                mannschaft1Box.setSelectedItem(selectedTurnier.getTeilnehmer().get(0));
+                mannschaft2Box.setSelectedItem(selectedTurnier.getTeilnehmer().get(1));
+                ortField.setText(selectedTurnier.getOrt());
+                datumField.setText(selectedTurnier.getDate());
+                preisgeldField.setText(selectedTurnier.getInsgPreisgeld() + " Euro");
+            }
+        });
+
+        selectedTurnier = (Turnier) turnierBox.getSelectedItem();
+        assert selectedTurnier != null;
+        mannschaft1Box.setSelectedItem(selectedTurnier.getTeilnehmer().get(0));
+        mannschaft2Box.setSelectedItem(selectedTurnier.getTeilnehmer().get(1));
+        ortField.setText(selectedTurnier.getOrt());
+        datumField.setText(selectedTurnier.getDate());
+        preisgeldField.setText(selectedTurnier.getInsgPreisgeld() + " Euro");
 
         // Make the frame visible
         setVisible(false);

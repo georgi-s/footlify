@@ -86,4 +86,12 @@ public class DataModel {
         }
         return null;
     }
+    public Turnier getTurnierById(UUID turnierId) {
+        for (Turnier turnier : turnierList) {
+            if (turnier.getTurnierId() == turnierId) {
+                return turnier;
+            }
+        }
+        return null;
+    }
 }
