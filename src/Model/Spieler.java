@@ -6,7 +6,7 @@ import java.util.UUID;
 
 
 public abstract class Spieler {
-    private UUID playerId;
+    private UUID playerId = UUID.randomUUID();
     private String nachname;
     private String vorname;
     private Date geburtsdatum;
@@ -16,8 +16,7 @@ public abstract class Spieler {
     private int roteKarten;
     private int gelbeKarten;
 
-    public Spieler(UUID playerId, String nachname, String vorname, Date geburtsdatum, int gespielteSpiele, boolean gesperrt, Date vereinsbeitritt, int roteKarten, int gelbeKarten) {
-        this.playerId = playerId;
+    public Spieler(String nachname, String vorname, Date geburtsdatum, int gespielteSpiele, boolean gesperrt, Date vereinsbeitritt, int roteKarten, int gelbeKarten) {
         this.nachname = nachname;
         this.vorname = vorname;
         this.geburtsdatum = geburtsdatum;

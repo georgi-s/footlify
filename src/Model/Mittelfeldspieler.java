@@ -13,8 +13,8 @@ public class Mittelfeldspieler extends Spieler {
     private int tore;
     private double passquote;
 
-    public Mittelfeldspieler(int anzahlVorlagen, int tore, double passquote, UUID playerId, String nachname, String vorname, Date geburtsdatum, int gespielteSpiele, boolean gesperrt, Date vereinsbeitritt, int roteKarten, int gelbeKarten) {
-        super(playerId, nachname, vorname, geburtsdatum, gespielteSpiele, gesperrt, vereinsbeitritt, roteKarten, gelbeKarten);
+    public Mittelfeldspieler(int anzahlVorlagen, int tore, double passquote, String nachname, String vorname, Date geburtsdatum, int gespielteSpiele, boolean gesperrt, Date vereinsbeitritt, int roteKarten, int gelbeKarten) {
+        super(nachname, vorname, geburtsdatum, gespielteSpiele, gesperrt, vereinsbeitritt, roteKarten, gelbeKarten);
         this.anzahlVorlagen = anzahlVorlagen;
         this.tore = tore;
         this.passquote = passquote;

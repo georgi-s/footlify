@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 public class Mannschaft {
-    public UUID ClubId;
+    public UUID ClubId = UUID.randomUUID();
     private String name;
     String trainer;
     private ArrayList<UUID> feldspieler;
@@ -14,8 +14,7 @@ public class Mannschaft {
     private Formation formation;
     private Liga liga;
 
-    public Mannschaft(UUID clubId,String name, String trainer, ArrayList<UUID> feldspieler, ArrayList<UUID> auswechselspieler, Formation formation, Liga liga) {
-        this.ClubId = clubId;
+    public Mannschaft(String name, String trainer, ArrayList<UUID> feldspieler, ArrayList<UUID> auswechselspieler, Formation formation, Liga liga) {
         this.name = name;
         this.trainer = trainer;
         this.feldspieler = feldspieler;

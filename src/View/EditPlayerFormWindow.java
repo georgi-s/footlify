@@ -141,6 +141,7 @@ public class EditPlayerFormWindow extends JFrame {
                 torwart.setHaltequote(Double.parseDouble(((JTextField) additionalFieldsPanel.getComponent(5)).getText()));
             }
 
+            dataModel.notifyListeners();
             JOptionPane.showMessageDialog(this, "Player updated successfully!");
             dispose();
         } catch (ParseException ex) {

@@ -13,7 +13,6 @@ import Model.*;
 
 public class CreatePlayerWindow extends JFrame {
     private JComboBox<String> playerTypeComboBox;
-    private JTextField playerIdField;
     private JTextField nachnameField;
     private JTextField vornameField;
     private JTextField geburtsdatumField;
@@ -39,7 +38,6 @@ public class CreatePlayerWindow extends JFrame {
         add(new JLabel("Player Type:"));
         add(playerTypeComboBox);
 
-        playerIdField = new JTextField(UUID.randomUUID().toString());
         nachnameField = new JTextField("Nachname");
         vornameField = new JTextField("Vorname");
         geburtsdatumField = new JTextField("dd.MM.yyyy");
@@ -49,8 +47,6 @@ public class CreatePlayerWindow extends JFrame {
         roteKartenSpinner = new JSpinner(new SpinnerNumberModel(0, 0, Integer.MAX_VALUE, 1));
         gelbeKartenSpinner = new JSpinner(new SpinnerNumberModel(0, 0, Integer.MAX_VALUE, 1));
 
-        add(new JLabel("Player ID:"));
-        add(playerIdField);
         add(new JLabel("Nachname:"));
         add(nachnameField);
         add(new JLabel("Vorname:"));
@@ -112,7 +108,6 @@ public class CreatePlayerWindow extends JFrame {
 
     private void createPlayer() {
         try {
-            UUID playerId = UUID.fromString(playerIdField.getText());
             String nachname = nachnameField.getText();
             String vorname = vornameField.getText();
             Date geburtsdatum = dateFormat.parse(geburtsdatumField.getText());
@@ -129,22 +124,22 @@ public class CreatePlayerWindow extends JFrame {
                 int geblockteAngriffe = (int) ((JSpinner) additionalFieldsPanel.getComponent(1)).getValue();
                 int gewonneneZweikaempfe = (int) ((JSpinner) additionalFieldsPanel.getComponent(3)).getValue();
                 double passquote = Double.parseDouble(((JTextField) additionalFieldsPanel.getComponent(5)).getText());
-                player = new Verteidiger(geblockteAngriffe, gewonneneZweikaempfe, passquote, playerId, nachname, vorname, geburtsdatum, gespielteSpiele, gesperrt, vereinsbeitritt, roteKarten, gelbeKarten);
+                player = new Verteidiger(geblockteAngriffe, gewonneneZweikaempfe, passquote, nachname, vorname, geburtsdatum, gespielteSpiele, gesperrt, vereinsbeitritt, roteKarten, gelbeKarten);
             } else if ("Stuermer".equals(playerType)) {
                 int geschosseneTore = (int) ((JSpinner) additionalFieldsPanel.getComponent(1)).getValue();
                 double schussgenauigkeit = Double.parseDouble(((JTextField) additionalFieldsPanel.getComponent(3)).getText());
                 double chancenverwertung = Double.parseDouble(((JTextField) additionalFieldsPanel.getComponent(5)).getText());
-                player = new Stuermer(geschosseneTore, schussgenauigkeit, chancenverwertung, playerId, nachname, vorname, geburtsdatum, gespielteSpiele, gesperrt, vereinsbeitritt, roteKarten, gelbeKarten);
+                player = new Stuermer(geschosseneTore, schussgenauigkeit, chancenverwertung, nachname, vorname, geburtsdatum, gespielteSpiele, gesperrt, vereinsbeitritt, roteKarten, gelbeKarten);
             } else if ("Mittelfeldspieler".equals(playerType)) {
                 int anzahlVorlagen = (int) ((JSpinner) additionalFieldsPanel.getComponent(1)).getValue();
                 int tore = (int) ((JSpinner) additionalFieldsPanel.getComponent(3)).getValue();
                 double passquote = Double.parseDouble(((JTextField) additionalFieldsPanel.getComponent(5)).getText());
-                player = new Mittelfeldspieler(anzahlVorlagen, tore, passquote, playerId, nachname, vorname, geburtsdatum, gespielteSpiele, gesperrt, vereinsbeitritt, roteKarten, gelbeKarten);
+                player = new Mittelfeldspieler(anzahlVorlagen, tore, passquote, nachname, vorname, geburtsdatum, gespielteSpiele, gesperrt, vereinsbeitritt, roteKarten, gelbeKarten);
             } else if ("Torwart".equals(playerType)) {
                 int spieleOhneGegentor = (int) ((JSpinner) additionalFieldsPanel.getComponent(1)).getValue();
                 int gegentore = (int) ((JSpinner) additionalFieldsPanel.getComponent(3)).getValue();
                 double haltequote = Double.parseDouble(((JTextField) additionalFieldsPanel.getComponent(5)).getText());
-                player = new Torwart(spieleOhneGegentor, gegentore, haltequote, playerId, nachname, vorname, geburtsdatum, gespielteSpiele, gesperrt, vereinsbeitritt, roteKarten, gelbeKarten);
+                player = new Torwart(spieleOhneGegentor, gegentore, haltequote, nachname, vorname, geburtsdatum, gespielteSpiele, gesperrt, vereinsbeitritt, roteKarten, gelbeKarten);
             }
 
             if (player != null) {
