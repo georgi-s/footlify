@@ -10,11 +10,10 @@ public class Stuermer extends Spieler {
     private double schussgenauigkeit;
     private double chancenverwertung;
 
-    public Stuermer(int geschosseneTore, double schussgenauigkeit, double chancenverwertung,
-                    UUID playerId, String nachname, String vorname, Date geburtsdatum,
+    public Stuermer(int geschosseneTore, double schussgenauigkeit, double chancenverwertung, String nachname, String vorname, Date geburtsdatum,
                     int gespielteSpiele, boolean gesperrt, Date vereinsbeitritt,
                     int roteKarten, int gelbeKarten) {
-        super(playerId, nachname, vorname, geburtsdatum, gespielteSpiele, gesperrt, vereinsbeitritt, roteKarten, gelbeKarten);
+        super(nachname, vorname, geburtsdatum, gespielteSpiele, gesperrt, vereinsbeitritt, roteKarten, gelbeKarten);
         this.geschosseneTore = geschosseneTore;
         this.schussgenauigkeit = schussgenauigkeit;
         this.chancenverwertung = chancenverwertung;
