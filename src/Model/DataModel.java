@@ -110,7 +110,7 @@ public class DataModel {
         }
         return null;
     }
-}
+
 
     public void addDataModelListener(DataModelListener listener) {
         listeners.add(listener);

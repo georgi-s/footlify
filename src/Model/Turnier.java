@@ -21,7 +21,7 @@ public class Turnier {
     private String ort;
     private String datum;
     private int insgPreisgeld;
-    private final ArrayList<UUID> teilnehmer;    //nur zwei Mannschaften
+    private ArrayList<UUID> teilnehmer;    //nur zwei Mannschaften
     private String siegerMannschaft;    //nicht im Constructor, da sieger nicht festgelegt werden soll
 
     public Turnier(String ort, String datum, int insgPreisgeld, ArrayList<UUID> teilnehmer) {
@@ -60,11 +60,11 @@ public class Turnier {
         System.out.println("Das Turnier beginnt!");
     }
 
-    public ArrayList<Integer> getTeilnehmer() {
+    public ArrayList<UUID> getTeilnehmer() {
         return teilnehmer;
     }
 
-    public void addTeilnehmer(int clubId) {
+    public void addTeilnehmer(UUID clubId) {
         this.teilnehmer.add(clubId);
     }
 
