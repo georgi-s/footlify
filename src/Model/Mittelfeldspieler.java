@@ -40,13 +40,16 @@ public class Mittelfeldspieler extends Spieler {
     //spielerqoute ausgeben
     public double spielerBewertung()
     {
-        double normGPS = tore/2.0;
-        double normAS = anzahlVorlagen/2.0;
+        double normGPS = (double) tore/getGespielteSpiele();
+        double normAS = (double) anzahlVorlagen /getGespielteSpiele();
         double gewGPS = 3.0;
         double gewAS = 4.0;
         double gewPQ = 3.0;
         double bewertung = normGPS * gewGPS + normAS * gewAS + passquote * gewPQ;
-        return round((bewertung/(gewGPS+gewAS+gewPQ))*100);
+        double gewichtung = gewGPS+gewAS+gewPQ;
+        bewertung = (bewertung/gewichtung) * 100;
+
+        return round(bewertung);
     }
 
     public double getPassquote() {

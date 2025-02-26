@@ -71,6 +71,7 @@ public class Stuermer extends Spieler {
         double gesamtGewichtung = gewichtungTore + gewichtungSchussgenauigkeit + gewichtungChancenverwertung;
         bewertung = (bewertung / gesamtGewichtung) * 100.0;
 
+
         return round(bewertung);
     }
 

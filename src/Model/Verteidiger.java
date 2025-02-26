@@ -40,15 +40,16 @@ public class Verteidiger extends Spieler {
     //spielerqoute ausgeben
     public double spielerBewertung()
     {
-        double gewGeb = 3.0;
+        double gewGeb = 2.0;
         double gewZK = 5.0;
-        double gewPQ = 2.0;
+        double gewPQ = 3.0;
 
         double normGeb = (double) geblockteAngriffe /getGespielteSpiele();
         double normZK = (double) gewonneneZweikaempfe /getGespielteSpiele();
         double bewertung = normGeb * gewGeb + normZK * gewZK + passqoute * gewPQ;
-
-        return round(bewertung/(gewGeb+gewZK+gewPQ)*100);
+        double gewichtung = gewGeb+gewZK+gewPQ;
+        bewertung = (bewertung/gewichtung) * 100;
+        return round(bewertung/3);
     }
 
     public int getGeblockteAngriffe() {
