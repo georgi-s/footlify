@@ -1,8 +1,6 @@
 package Model;
 
 import java.util.Date;
-import java.util.UUID;
-
 import static java.lang.Math.round;
 
 public class Stuermer extends Spieler {
@@ -10,9 +8,17 @@ public class Stuermer extends Spieler {
     private double schussgenauigkeit;
     private double chancenverwertung;
 
-    public Stuermer(int geschosseneTore, double schussgenauigkeit, double chancenverwertung, String nachname, String vorname, Date geburtsdatum,
-                    int gespielteSpiele, boolean gesperrt, Date vereinsbeitritt,
-                    int roteKarten, int gelbeKarten) {
+    public Stuermer(
+            int geschosseneTore,
+            double schussgenauigkeit,
+            double chancenverwertung,
+            String nachname,
+            String vorname,
+            Date geburtsdatum,
+            int gespielteSpiele,
+            boolean gesperrt,
+            Date vereinsbeitritt,
+            int roteKarten, int gelbeKarten) {
         super(nachname, vorname, geburtsdatum, gespielteSpiele, gesperrt, vereinsbeitritt, roteKarten, gelbeKarten);
         this.geschosseneTore = geschosseneTore;
         this.schussgenauigkeit = schussgenauigkeit;
@@ -56,7 +62,7 @@ public class Stuermer extends Spieler {
         int spiele = getGespielteSpiele();
         double normToreProSpiel = 0.0;
         if (spiele > 0) {
-            normToreProSpiel = ((double)getGeschosseneTore() / spiele) / 5.0;
+            normToreProSpiel = ((double) getGeschosseneTore() / spiele) / 5.0;
         }
 
         double gewichtungTore = 5.0;
@@ -65,8 +71,8 @@ public class Stuermer extends Spieler {
 
         // Schritt 3: Berechnung der Bewertung (gewichtete Summe)
         double bewertung = normToreProSpiel * gewichtungTore
-                         + getSchussgenauigkeit() * gewichtungSchussgenauigkeit
-                         + getChancenverwertung() * gewichtungChancenverwertung;
+                + getSchussgenauigkeit() * gewichtungSchussgenauigkeit
+                + getChancenverwertung() * gewichtungChancenverwertung;
 
         double gesamtGewichtung = gewichtungTore + gewichtungSchussgenauigkeit + gewichtungChancenverwertung;
         bewertung = (bewertung / gesamtGewichtung) * 100.0;

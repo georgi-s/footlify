@@ -4,7 +4,7 @@ import javax.swing.*;
 import Model.DataModel;
 
 public class PlayerMenu extends JPanel {
-    private DataModel dataModel;
+    private final DataModel dataModel;
 
     public PlayerMenu(DataModel dataModel) {
         this.dataModel = dataModel;

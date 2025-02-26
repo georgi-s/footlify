@@ -3,8 +3,6 @@ package Model;
 
 
 import java.util.Date;
-import java.util.UUID;
-
 import static java.lang.Math.round;
 
 
@@ -13,7 +11,18 @@ public class Verteidiger extends Spieler {
     private int gewonneneZweikaempfe;
     private double passqoute;
 
-    public Verteidiger(int geblockteAngriffe, int gewonneneZweikaempfe, double passqoute, String nachname, String vorname, Date geburtsdatum, int gespielteSpiele, boolean gesperrt, Date vereinsbeitritt, int roteKarten, int gelbeKarten) {
+    public Verteidiger(
+            int geblockteAngriffe,
+            int gewonneneZweikaempfe,
+            double passqoute,
+            String nachname,
+            String vorname,
+            Date geburtsdatum,
+            int gespielteSpiele,
+            boolean gesperrt,
+            Date vereinsbeitritt,
+            int roteKarten,
+            int gelbeKarten) {
         super(nachname, vorname, geburtsdatum, gespielteSpiele, gesperrt, vereinsbeitritt, roteKarten, gelbeKarten);
         this.geblockteAngriffe = geblockteAngriffe;
         this.gewonneneZweikaempfe = gewonneneZweikaempfe;

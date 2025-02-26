@@ -7,23 +7,22 @@ import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.UUID;
 
 import Model.*;
 
 public class CreatePlayerWindow extends JFrame {
-    private JComboBox<String> playerTypeComboBox;
-    private JTextField nachnameField;
-    private JTextField vornameField;
-    private JTextField geburtsdatumField;
-    private JSpinner gespielteSpieleSpinner;
-    private JCheckBox gesperrtCheckBox;
-    private JTextField vereinsbeitrittField;
-    private JSpinner roteKartenSpinner;
-    private JSpinner gelbeKartenSpinner;
-    private JPanel additionalFieldsPanel;
-    private DataModel dataModel;
-    private SimpleDateFormat dateFormat;
+    private final JComboBox<String> playerTypeComboBox;
+    private final JTextField nachnameField;
+    private final JTextField vornameField;
+    private final JTextField geburtsdatumField;
+    private final JSpinner gespielteSpieleSpinner;
+    private final JCheckBox gesperrtCheckBox;
+    private final JTextField vereinsbeitrittField;
+    private final JSpinner roteKartenSpinner;
+    private final JSpinner gelbeKartenSpinner;
+    private final JPanel additionalFieldsPanel;
+    private final DataModel dataModel;
+    private final SimpleDateFormat dateFormat;
 
     public CreatePlayerWindow(DataModel dataModel) {
         this.dataModel = dataModel;
@@ -68,12 +67,7 @@ public class CreatePlayerWindow extends JFrame {
         add(additionalFieldsPanel);
 
         JButton createButton = new JButton("Create");
-        createButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                createPlayer();
-            }
-        });
+        createButton.addActionListener(e -> createPlayer());
         add(createButton);
     }
 

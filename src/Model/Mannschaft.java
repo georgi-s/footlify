@@ -1,6 +1,4 @@
-// pfad: STDM_GruppeC_SCPM06/src/sportverein/Manschaft.java
 package Model;
-
 
 import java.util.ArrayList;
 import java.util.UUID;
