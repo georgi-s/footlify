@@ -90,7 +90,4 @@ public class EditTurnierFrame extends JFrame {
         setVisible(false);
     }
 
-    public static void main(String[] args) {
-        new EditTurnierFrame();
-    }
 }
