@@ -136,21 +136,21 @@ public class EditTurnierFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 selectedTurnier = (Turnier) turnierBox.getSelectedItem();
                 assert selectedTurnier != null;
-                mannschaft1Box.setSelectedItem(selectedTurnier.getTeilnehmer().get(0));
-                mannschaft2Box.setSelectedItem(selectedTurnier.getTeilnehmer().get(1));
+                mannschaft1Box.setSelectedItem(dataModel.getClubById(selectedTurnier.getTeilnehmer().get(0)));
+                mannschaft2Box.setSelectedItem(dataModel.getClubById(selectedTurnier.getTeilnehmer().get(1)));
                 ortField.setText(selectedTurnier.getOrt());
                 datumField.setText(selectedTurnier.getDate());
-                preisgeldField.setText(selectedTurnier.getInsgPreisgeld() + " Euro");
+                preisgeldField.setText(selectedTurnier.getInsgPreisgeld() + "");
             }
         });
 
         selectedTurnier = (Turnier) turnierBox.getSelectedItem();
         assert selectedTurnier != null;
-        mannschaft1Box.setSelectedItem(selectedTurnier.getTeilnehmer().get(0));
-        mannschaft2Box.setSelectedItem(selectedTurnier.getTeilnehmer().get(1));
+        mannschaft1Box.setSelectedItem(dataModel.getClubById(selectedTurnier.getTeilnehmer().get(0)));
+        mannschaft2Box.setSelectedItem(dataModel.getClubById(selectedTurnier.getTeilnehmer().get(1)));
         ortField.setText(selectedTurnier.getOrt());
         datumField.setText(selectedTurnier.getDate());
-        preisgeldField.setText(selectedTurnier.getInsgPreisgeld() + " Euro");
+        preisgeldField.setText(selectedTurnier.getInsgPreisgeld()+"");
 
         // Make the frame visible
         setVisible(false);
