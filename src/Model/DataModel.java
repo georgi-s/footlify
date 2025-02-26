@@ -65,10 +65,23 @@ public class DataModel {
         this.selectedClub = selectedClub;
     }
 
+    public void setMannschaftList(List<Mannschaft> mannschaftList) {
+        this.mannschaftList = mannschaftList;
+    }
+
     public Spieler getSpielerById(UUID playerId) {
         for (Spieler spieler : spielerList) {
             if (spieler.getPlayerId() == playerId) {
                 return spieler;
+            }
+        }
+        return null;
+    }
+
+    public Mannschaft getClubById(UUID clubId) {
+        for (Mannschaft mannschaft : mannschaftList) {
+            if (mannschaft.getClubId() == clubId) {
+                return mannschaft;
             }
         }
         return null;
