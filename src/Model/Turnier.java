@@ -18,10 +18,14 @@ public class Turnier {
     private String ort;
     private Date datum;
     private int insgPreisgeld;
-    private ArrayList<Integer> teilnehmer;    //nur zwei Mannschaften
+    private final ArrayList<Integer> teilnehmer;    //nur zwei Mannschaften
     private String siegerMannschaft;    //nicht im Constructor, da sieger nicht festgelegt werden soll
 
-    public Turnier(String ort, Date datum, int insgPreisgeld, ArrayList<Integer> teilnehmer) {
+    public Turnier(
+            String ort,
+            Date datum,
+            int insgPreisgeld,
+            ArrayList<Integer> teilnehmer) {
         this.ort = ort;
         this.datum = datum;
         this.insgPreisgeld = insgPreisgeld;

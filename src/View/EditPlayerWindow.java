@@ -4,15 +4,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Date;
 import java.util.UUID;
 
 import Model.*;
 
 public class EditPlayerWindow extends JFrame {
-    private JList<Spieler> playerList;
-    private DefaultListModel<Spieler> listModel;
-    private DataModel dataModel;
+    private final JList<Spieler> playerList;
+    private final DataModel dataModel;
 
     public EditPlayerWindow(DataModel dataModel) {
         this.dataModel = dataModel;
@@ -20,7 +18,8 @@ public class EditPlayerWindow extends JFrame {
         setSize(400, 400);
         setLayout(new BorderLayout());
 
-        listModel = new DefaultListModel<>();
+        DefaultListModel<Spieler> listModel = new DefaultListModel<>();
+
         Mannschaft selectedClub = dataModel.getSelectedClub();
         if (selectedClub != null) {
             for (UUID playerId : selectedClub.getFeldspieler()) {
@@ -35,12 +34,7 @@ public class EditPlayerWindow extends JFrame {
         add(new JScrollPane(playerList), BorderLayout.CENTER);
 
         JButton editButton = new JButton("Edit");
-        editButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                editPlayer();
-            }
-        });
+        editButton.addActionListener(e -> editPlayer());
         add(editButton, BorderLayout.SOUTH);
     }
 
