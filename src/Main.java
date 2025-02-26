@@ -1,4 +1,3 @@
-import GUI.CreateTurnierFrame;
 import GUI.MainFrame;
 
 import javax.swing.*;

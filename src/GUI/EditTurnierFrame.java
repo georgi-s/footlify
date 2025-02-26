@@ -5,8 +5,7 @@ import java.awt.*;
 
 public class EditTurnierFrame extends JFrame {
     public EditTurnierFrame(){
-        setTitle("Turnier erstellen");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setTitle("Turnier editieren");
         setSize(600, 400);
 
         // Create a panel to hold all the components
@@ -77,11 +76,18 @@ public class EditTurnierFrame extends JFrame {
         mannschaft2Box.setPreferredSize(new Dimension(100, 20));
         panel.add(mannschaft2Box, gbc);
 
+        // Add the "Speichern" button
+        gbc.gridx = 0;
+        gbc.gridy = 6;
+        gbc.gridwidth = 2;
+        JButton speichernButton = new JButton("Speichern");
+        panel.add(speichernButton, gbc);
+
         // Add the panel to the frame
         add(panel);
 
         // Make the frame visible
-        setVisible(true);
+        setVisible(false);
     }
 
     public static void main(String[] args) {
