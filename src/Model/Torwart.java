@@ -3,6 +3,7 @@ package Model;
 
 
 import java.util.Date;
+import java.util.UUID;
 
 import static java.lang.Math.round;
 
@@ -13,7 +14,7 @@ public class Torwart extends Spieler {
     private int gegentore;
     private double haltequote;
 
-    public Torwart(int spieleOhneGegentor, int gegentore, double haltequote,int playerId, String nachname, String vorname, Date geburtsdatum, int gespielteSpiele, boolean gesperrt, Date vereinsbeitritt, int roteKarten, int gelbeKarten) {
+    public Torwart(int spieleOhneGegentor, int gegentore, double haltequote, UUID playerId, String nachname, String vorname, Date geburtsdatum, int gespielteSpiele, boolean gesperrt, Date vereinsbeitritt, int roteKarten, int gelbeKarten) {
         super(playerId, nachname, vorname, geburtsdatum, gespielteSpiele, gesperrt, vereinsbeitritt, roteKarten, gelbeKarten);
         this.spieleOhneGegentor = spieleOhneGegentor;
         this.gegentore = gegentore;

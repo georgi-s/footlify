@@ -15,6 +15,7 @@ import java.awt.event.ItemListener;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.UUID;
 
 public class ClubPanel extends JPanel {
     private ArrayList<Mannschaft> clubs;
@@ -34,106 +35,160 @@ public class ClubPanel extends JPanel {
         //generate Testdata
         players = new ArrayList<>();
 
-        // Bayern München
-        players.add(new Stuermer(15, 0.65, 0.30, 1, "Müller", "Thomas", new Date(1989, 9, 13), 20, false, new Date(2000, 7, 1), 0, 2));
-        players.add(new Stuermer(20, 0.70, 0.40, 2, "Lewandowski", "Robert", new Date(1988, 8, 21), 18, false, new Date(2014, 7, 1), 1, 1));
-        players.add(new Stuermer(10, 0.55, 0.25, 3, "Gnabry", "Serge", new Date(1995, 7, 14), 19, false, new Date(2017, 7, 1), 0, 3));
-        players.add(new Stuermer(8, 0.60, 0.20, 4, "Sané", "Leroy", new Date(1996, 1, 11), 15, false, new Date(2020, 7, 1), 0, 2));
+        ArrayList<Spieler> playersBayern = new ArrayList<>();
+        ArrayList<Spieler> auswechselSpielerBayern = new ArrayList<>();
 
-        // Borussia Dortmund (BVB)
-        players.add(new Stuermer(12, 0.62, 0.32, 5, "Reus", "Marco", new Date(1989, 5, 31), 22, false, new Date(2012, 7, 1), 1, 4));
-        players.add(new Stuermer(18, 0.75, 0.45, 6, "Haaland", "Erling", new Date(2000, 7, 21), 16, false, new Date(2020, 1, 1), 0, 1));
-        players.add(new Stuermer(9, 0.58, 0.27, 7, "Malen", "Donyell", new Date(1999, 1, 19), 18, false, new Date(2021, 7, 1), 0, 2));
-        players.add(new Stuermer(6, 0.50, 0.18, 8, "Moukoko", "Youssoufa", new Date(2004, 11, 20), 14, false, new Date(2020, 7, 1), 0, 0));
+        ArrayList<Spieler> playersDortmund = new ArrayList<>();
+        ArrayList<Spieler> auswechselSpielerDortmund = new ArrayList<>();
 
-        // FC Schalke 04
-        players.add(new Stuermer(10, 0.55, 0.28, 9, "Terodde", "Simon", new Date(1988, 3, 2), 17, false, new Date(2021, 7, 1), 1, 3));
-        players.add(new Stuermer(7, 0.50, 0.22, 10, "Bülter", "Marius", new Date(1993, 3, 29), 16, false, new Date(2021, 7, 1), 0, 1));
-        players.add(new Stuermer(5, 0.48, 0.20, 11, "Polter", "Sebastian", new Date(1991, 4, 1), 14, false, new Date(2022, 7, 1), 0, 2));
-        players.add(new Stuermer(3, 0.45, 0.15, 12, "Pieringer", "Marvin", new Date(1999, 10, 4), 10, false, new Date(2021, 7, 1), 0, 1));
+        ArrayList<Spieler> playersSchalke = new ArrayList<>();
+        ArrayList<Spieler> auswechselSpielerSchalke = new ArrayList<>();
 
-        // SC Preußen Münster
-        players.add(new Stuermer(8, 0.52, 0.26, 13, "Schauerte", "Julian", new Date(1988, 4, 2), 19, false, new Date(2019, 7, 1), 0, 1));
-        players.add(new Stuermer(6, 0.49, 0.22, 14, "Kobylanski", "Martin", new Date(1994, 3, 8), 18, false, new Date(2022, 7, 1), 0, 2));
-        players.add(new Stuermer(5, 0.47, 0.20, 15, "Wegkamp", "Rene", new Date(1993, 4, 14), 17, false, new Date(2018, 7, 1), 0, 1));
-
+        ArrayList<Spieler> playersMuenster = new ArrayList<>();
+        ArrayList<Spieler> auswechselSpielerMuenster = new ArrayList<>();
 
         // Bayern München
-        players.add(new Mittelfeldspieler(10, 6, 0.88, 16, "Kimmich", "Joshua", new Date(1995, 2, 8), 22, false, new Date(2015, 7, 1), 0, 3));
-        players.add(new Mittelfeldspieler(12, 5, 0.85, 17, "Goretzka", "Leon", new Date(1995, 2, 6), 20, false, new Date(2018, 7, 1), 0, 2));
-        players.add(new Mittelfeldspieler(8, 4, 0.82, 18, "Musiala", "Jamal", new Date(2003, 2, 26), 19, false, new Date(2020, 7, 1), 0, 1));
-        players.add(new Mittelfeldspieler(7, 3, 0.80, 19, "Gravenberch", "Ryan", new Date(2002, 5, 16), 17, false, new Date(2022, 7, 1), 0, 1));
+        playersBayern.add(new Stuermer(15, 0.65, 0.30, UUID.randomUUID(), "Müller", "Thomas", new Date(1989, 9, 13), 20, false, new Date(2000, 7, 1), 0, 2));
+        playersBayern.add(new Stuermer(20, 0.70, 0.40, UUID.randomUUID(), "Lewandowski", "Robert", new Date(1988, 8, 21), 18, false, new Date(2014, 7, 1), 1, 1));
+        playersBayern.add(new Stuermer(10, 0.55, 0.25, UUID.randomUUID(), "Gnabry", "Serge", new Date(1995, 7, 14), 19, false, new Date(2017, 7, 1), 0, 3));
+        auswechselSpielerBayern.add(new Stuermer(8, 0.60, 0.20, UUID.randomUUID(), "Sané", "Leroy", new Date(1996, 1, 11), 15, false, new Date(2020, 7, 1), 0, 2));
 
         // Borussia Dortmund (BVB)
-        players.add(new Mittelfeldspieler(11, 5, 0.87, 20, "Bellingham", "Jude", new Date(2003, 6, 29), 21, false, new Date(2020, 7, 1), 1, 2));
-        players.add(new Mittelfeldspieler(9, 4, 0.84, 21, "Brandt", "Julian", new Date(1996, 5, 2), 20, false, new Date(2019, 7, 1), 0, 3));
-        players.add(new Mittelfeldspieler(7, 3, 0.79, 22, "Dahoud", "Mahmoud", new Date(1996, 1, 1), 18, false, new Date(2017, 7, 1), 0, 2));
-        players.add(new Mittelfeldspieler(6, 2, 0.77, 23, "Reyna", "Giovanni", new Date(2002, 11, 13), 16, false, new Date(2019, 7, 1), 0, 1));
+        playersDortmund.add(new Stuermer(12, 0.62, 0.32, UUID.randomUUID(), "Reus", "Marco", new Date(1989, 5, 31), 22, false, new Date(2012, 7, 1), 1, 4));
+        playersDortmund.add(new Stuermer(18, 0.75, 0.45, UUID.randomUUID(), "Haaland", "Erling", new Date(2000, 7, 21), 16, false, new Date(2020, 1, 1), 0, 1));
+        playersDortmund.add(new Stuermer(9, 0.58, 0.27, UUID.randomUUID(), "Malen", "Donyell", new Date(1999, 1, 19), 18, false, new Date(2021, 7, 1), 0, 2));
+        auswechselSpielerDortmund.add(new Stuermer(6, 0.50, 0.18, UUID.randomUUID(), "Moukoko", "Youssoufa", new Date(2004, 11, 20), 14, false, new Date(2020, 7, 1), 0, 0));
 
         // FC Schalke 04
-        players.add(new Mittelfeldspieler(8, 3, 0.78, 24, "Krauß", "Tom", new Date(2001, 6, 22), 19, false, new Date(2022, 7, 1), 0, 1));
-        players.add(new Mittelfeldspieler(10, 4, 0.80, 25, "Drexler", "Dominick", new Date(1990, 5, 26), 20, false, new Date(2021, 7, 1), 0, 2));
-        players.add(new Mittelfeldspieler(5, 2, 0.75, 26, "Latza", "Danny", new Date(1989, 12, 7), 17, false, new Date(2021, 7, 1), 0, 1));
-        players.add(new Mittelfeldspieler(6, 2, 0.74, 27, "Flick", "Florian", new Date(2000, 5, 1), 16, false, new Date(2020, 7, 1), 0, 1));
-        players.add(new Mittelfeldspieler(7, 3, 0.76, 28, "Mollet", "Florent", new Date(1991, 11, 19), 18, false, new Date(2022, 7, 1), 0, 1));
+        playersSchalke.add(new Stuermer(10, 0.55, 0.28, UUID.randomUUID(), "Terodde", "Simon", new Date(1988, 3, 2), 17, false, new Date(2021, 7, 1), 1, 3));
+        playersSchalke.add(new Stuermer(7, 0.50, 0.22, UUID.randomUUID(), "Bülter", "Marius", new Date(1993, 3, 29), 16, false, new Date(2021, 7, 1), 0, 1));
+        playersSchalke.add(new Stuermer(5, 0.48, 0.20, UUID.randomUUID(), "Polter", "Sebastian", new Date(1991, 4, 1), 14, false, new Date(2022, 7, 1), 0, 2));
+        auswechselSpielerSchalke.add(new Stuermer(3, 0.45, 0.15, UUID.randomUUID(), "Pieringer", "Marvin", new Date(1999, 10, 4), 10, false, new Date(2021, 7, 1), 0, 1));
 
         // SC Preußen Münster
-        players.add(new Mittelfeldspieler(6, 3, 0.73, 29, "Schmidt", "Marc", new Date(1994, 3, 15), 18, false, new Date(2020, 7, 1), 0, 1));
-        players.add(new Mittelfeldspieler(8, 4, 0.75, 30, "Hoffmann", "Jan", new Date(1997, 6, 25), 19, false, new Date(2019, 7, 1), 0, 1));
-        players.add(new Mittelfeldspieler(5, 2, 0.70, 31, "Meier", "Stefan", new Date(1996, 9, 10), 17, false, new Date(2021, 7, 1), 0, 1));
-        players.add(new Mittelfeldspieler(7, 3, 0.74, 32, "Becker", "Tobias", new Date(1993, 12, 8), 18, false, new Date(2018, 7, 1), 0, 1));
+        playersMuenster.add(new Stuermer(8, 0.52, 0.26, UUID.randomUUID(), "Schauerte", "Julian", new Date(1988, 4, 2), 19, false, new Date(2019, 7, 1), 0, 1));
+        playersMuenster.add(new Stuermer(6, 0.49, 0.22, UUID.randomUUID(), "Kobylanski", "Martin", new Date(1994, 3, 8), 18, false, new Date(2022, 7, 1), 0, 2));
+        auswechselSpielerMuenster.add(new Stuermer(5, 0.47, 0.20, UUID.randomUUID(), "Wegkamp", "Rene", new Date(1993, 4, 14), 17, false, new Date(2018, 7, 1), 0, 1));
 
 
         // Bayern München
-        players.add(new Verteidiger(30, 60, 0.89, 33, "de Ligt", "Matthijs", new Date(1999, 8, 12), 22, false, new Date(2022, 7, 1), 1, 3));
-        players.add(new Verteidiger(28, 58, 0.86, 34, "Pavard", "Benjamin", new Date(1996, 3, 28), 21, false, new Date(2019, 7, 1), 0, 2));
-        players.add(new Verteidiger(25, 55, 0.84, 35, "Davies", "Alphonso", new Date(2000, 11, 2), 20, false, new Date(2019, 7, 1), 0, 1));
-        players.add(new Verteidiger(32, 65, 0.88, 36, "Upamecano", "Dayot", new Date(1998, 10, 27), 22, false, new Date(2021, 7, 1), 1, 4));
-        players.add(new Verteidiger(27, 57, 0.85, 37, "Hernández", "Lucas", new Date(1996, 2, 14), 19, false, new Date(2019, 7, 1), 0, 2));
+        playersBayern.add(new Mittelfeldspieler(10, 6, 0.88, UUID.randomUUID(), "Kimmich", "Joshua", new Date(1995, 2, 8), 22, false, new Date(2015, 7, 1), 0, 3));
+        playersBayern.add(new Mittelfeldspieler(12, 5, 0.85, UUID.randomUUID(), "Goretzka", "Leon", new Date(1995, 2, 6), 20, false, new Date(2018, 7, 1), 0, 2));
+        playersBayern.add(new Mittelfeldspieler(8, 4, 0.82, UUID.randomUUID(), "Musiala", "Jamal", new Date(2003, 2, 26), 19, false, new Date(2020, 7, 1), 0, 1));
+        auswechselSpielerBayern.add(new Mittelfeldspieler(7, 3, 0.80, UUID.randomUUID(), "Gravenberch", "Ryan", new Date(2002, 5, 16), 17, false, new Date(2022, 7, 1), 0, 1));
 
         // Borussia Dortmund (BVB)
-        players.add(new Verteidiger(29, 59, 0.87, 38, "Hummels", "Mats", new Date(1988, 12, 16), 22, false, new Date(2019, 7, 1), 0, 3));
-        players.add(new Verteidiger(26, 54, 0.83, 39, "Schlotterbeck", "Nico", new Date(1999, 12, 1), 21, false, new Date(2022, 7, 1), 1, 2));
-        players.add(new Verteidiger(24, 50, 0.80, 40, "Süle", "Niklas", new Date(1995, 9, 3), 20, false, new Date(2022, 7, 1), 0, 1));
-        players.add(new Verteidiger(31, 62, 0.86, 41, "Ryerson", "Julian", new Date(1997, 11, 17), 22, false, new Date(2023, 1, 1), 0, 2));
-        players.add(new Verteidiger(28, 56, 0.84, 42, "Meunier", "Thomas", new Date(1991, 9, 12), 18, false, new Date(2020, 7, 1), 0, 1));
+        playersDortmund.add(new Mittelfeldspieler(11, 5, 0.87, UUID.randomUUID(), "Bellingham", "Jude", new Date(2003, 6, 29), 21, false, new Date(2020, 7, 1), 1, 2));
+        playersDortmund.add(new Mittelfeldspieler(9, 4, 0.84, UUID.randomUUID(), "Brandt", "Julian", new Date(1996, 5, 2), 20, false, new Date(2019, 7, 1), 0, 3));
+        playersDortmund.add(new Mittelfeldspieler(7, 3, 0.79, UUID.randomUUID(), "Dahoud", "Mahmoud", new Date(1996, 1, 1), 18, false, new Date(2017, 7, 1), 0, 2));
+        auswechselSpielerDortmund.add(new Mittelfeldspieler(6, 2, 0.77, UUID.randomUUID(), "Reyna", "Giovanni", new Date(2002, 11, 13), 16, false, new Date(2019, 7, 1), 0, 1));
 
         // FC Schalke 04
-        players.add(new Verteidiger(27, 55, 0.82, 43, "Yoshida", "Maya", new Date(1988, 8, 24), 19, false, new Date(2022, 7, 1), 0, 2));
-        players.add(new Verteidiger(25, 53, 0.80, 44, "Matriciani", "Henning", new Date(1999, 3, 14), 18, false, new Date(2021, 7, 1), 0, 1));
-        players.add(new Verteidiger(30, 60, 0.83, 45, "Kaminski", "Marcin", new Date(1992, 1, 15), 20, false, new Date(2021, 7, 1), 1, 3));
-        players.add(new Verteidiger(22, 48, 0.78, 46, "Brunner", "Cedric", new Date(1994, 2, 18), 17, false, new Date(2022, 7, 1), 0, 1));
+        playersSchalke.add(new Mittelfeldspieler(8, 3, 0.78, UUID.randomUUID(), "Krauß", "Tom", new Date(2001, 6, 22), 19, false, new Date(2022, 7, 1), 0, 1));
+        playersSchalke.add(new Mittelfeldspieler(10, 4, 0.80, UUID.randomUUID(), "Drexler", "Dominick", new Date(1990, 5, 26), 20, false, new Date(2021, 7, 1), 0, 2));
+        playersSchalke.add(new Mittelfeldspieler(5, 2, 0.75, UUID.randomUUID(), "Latza", "Danny", new Date(1989, 12, 7), 17, false, new Date(2021, 7, 1), 0, 1));
+        playersSchalke.add(new Mittelfeldspieler(6, 2, 0.74, UUID.randomUUID(), "Flick", "Florian", new Date(2000, 5, 1), 16, false, new Date(2020, 7, 1), 0, 1));
+        auswechselSpielerSchalke.add(new Mittelfeldspieler(7, 3, 0.76, UUID.randomUUID(), "Mollet", "Florent", new Date(1991, 11, 19), 18, false, new Date(2022, 7, 1), 0, 1));
 
         // SC Preußen Münster
-        players.add(new Verteidiger(21, 45, 0.76, 47, "Schulz", "Nico", new Date(1993, 4, 1), 18, false, new Date(2022, 7, 1), 0, 1));
-        players.add(new Verteidiger(23, 50, 0.78, 48, "Petersen", "Lars", new Date(1995, 6, 9), 19, false, new Date(2021, 7, 1), 0, 2));
-        players.add(new Verteidiger(28, 55, 0.81, 49, "Lindner", "Sebastian", new Date(1996, 3, 7), 20, false, new Date(2020, 7, 1), 1, 3));
-        players.add(new Verteidiger(26, 52, 0.79, 50, "Kramer", "Tim", new Date(1997, 7, 19), 19, false, new Date(2019, 7, 1), 0, 1));
-        players.add(new Verteidiger(29, 58, 0.82, 51, "Schmidt", "Andreas", new Date(1998, 9, 25), 20, false, new Date(2020, 7, 1), 0, 2));
-        players.add(new Verteidiger(24, 49, 0.77, 52, "Weber", "Felix", new Date(1994, 10, 30), 18, false, new Date(2018, 7, 1), 0, 1));
+        playersMuenster.add(new Mittelfeldspieler(6, 3, 0.73, UUID.randomUUID(), "Schmidt", "Marc", new Date(1994, 3, 15), 18, false, new Date(2020, 7, 1), 0, 1));
+        playersMuenster.add(new Mittelfeldspieler(8, 4, 0.75, UUID.randomUUID(), "Hoffmann", "Jan", new Date(1997, 6, 25), 19, false, new Date(2019, 7, 1), 0, 1));
+        playersMuenster.add(new Mittelfeldspieler(5, 2, 0.70, UUID.randomUUID(), "Meier", "Stefan", new Date(1996, 9, 10), 17, false, new Date(2021, 7, 1), 0, 1));
+        auswechselSpielerMuenster.add(new Mittelfeldspieler(7, 3, 0.74, UUID.randomUUID(), "Becker", "Tobias", new Date(1993, 12, 8), 18, false, new Date(2018, 7, 1), 0, 1));
+
 
         // Bayern München
-        players.add(new Torwart(10, 15, 0.89, 53, "Neuer", "Manuel", new Date(1986, 3, 27), 22, false, new Date(2011, 7, 1), 0, 1));
-        players.add(new Torwart(5, 10, 0.83, 54, "Ulreich", "Sven", new Date(1988, 8, 3), 14, false, new Date(2015, 7, 1), 0, 0));
+        playersBayern.add(new Verteidiger(30, 60, 0.89, UUID.randomUUID(), "de Ligt", "Matthijs", new Date(1999, 8, 12), 22, false, new Date(2022, 7, 1), 1, 3));
+        playersBayern.add(new Verteidiger(28, 58, 0.86, UUID.randomUUID(), "Pavard", "Benjamin", new Date(1996, 3, 28), 21, false, new Date(2019, 7, 1), 0, 2));
+        playersBayern.add(new Verteidiger(25, 55, 0.84, UUID.randomUUID(), "Davies", "Alphonso", new Date(2000, 11, 2), 20, false, new Date(2019, 7, 1), 0, 1));
+        playersBayern.add(new Verteidiger(32, 65, 0.88, UUID.randomUUID(), "Upamecano", "Dayot", new Date(1998, 10, 27), 22, false, new Date(2021, 7, 1), 1, 4));
+        auswechselSpielerBayern.add(new Verteidiger(27, 57, 0.85, UUID.randomUUID(), "Hernández", "Lucas", new Date(1996, 2, 14), 19, false, new Date(2019, 7, 1), 0, 2));
 
         // Borussia Dortmund (BVB)
-        players.add(new Torwart(9, 18, 0.87, 55, "Kobel", "Gregor", new Date(1997, 12, 6), 21, false, new Date(2021, 7, 1), 0, 1));
-        players.add(new Torwart(4, 12, 0.81, 56, "Meyer", "Alexander", new Date(1991, 4, 13), 12, false, new Date(2022, 7, 1), 0, 0));
+        playersDortmund.add(new Verteidiger(29, 59, 0.87, UUID.randomUUID(), "Hummels", "Mats", new Date(1988, 12, 16), 22, false, new Date(2019, 7, 1), 0, 3));
+        playersDortmund.add(new Verteidiger(26, 54, 0.83, UUID.randomUUID(), "Schlotterbeck", "Nico", new Date(1999, 12, 1), 21, false, new Date(2022, 7, 1), 1, 2));
+        playersDortmund.add(new Verteidiger(24, 50, 0.80, UUID.randomUUID(), "Süle", "Niklas", new Date(1995, 9, 3), 20, false, new Date(2022, 7, 1), 0, 1));
+        playersDortmund.add(new Verteidiger(31, 62, 0.86, UUID.randomUUID(), "Ryerson", "Julian", new Date(1997, 11, 17), 22, false, new Date(2023, 1, 1), 0, 2));
+        auswechselSpielerDortmund.add(new Verteidiger(28, 56, 0.84, UUID.randomUUID(), "Meunier", "Thomas", new Date(1991, 9, 12), 18, false, new Date(2020, 7, 1), 0, 1));
 
         // FC Schalke 04
-        players.add(new Torwart(8, 20, 0.85, 57, "Fährmann", "Ralf", new Date(1988, 9, 27), 19, false, new Date(2011, 7, 1), 0, 1));
-        players.add(new Torwart(3, 14, 0.79, 58, "Schwolow", "Alexander", new Date(1992, 6, 2), 15, false, new Date(2022, 7, 1), 0, 0));
+        playersSchalke.add(new Verteidiger(27, 55, 0.82, UUID.randomUUID(), "Yoshida", "Maya", new Date(1988, 8, 24), 19, false, new Date(2022, 7, 1), 0, 2));
+        playersSchalke.add(new Verteidiger(25, 53, 0.80, UUID.randomUUID(), "Matriciani", "Henning", new Date(1999, 3, 14), 18, false, new Date(2021, 7, 1), 0, 1));
+        playersSchalke.add(new Verteidiger(30, 60, 0.83, UUID.randomUUID(), "Kaminski", "Marcin", new Date(1992, 1, 15), 20, false, new Date(2021, 7, 1), 1, 3));
+        auswechselSpielerSchalke.add(new Verteidiger(22, 48, 0.78, UUID.randomUUID(), "Brunner", "Cedric", new Date(1994, 2, 18), 17, false, new Date(2022, 7, 1), 0, 1));
 
         // SC Preußen Münster
-        players.add(new Torwart(7, 22, 0.82, 59, "Schulze", "Jan", new Date(1995, 5, 14), 20, false, new Date(2020, 7, 1), 0, 1));
-        players.add(new Torwart(2, 16, 0.75, 60, "Becker", "Lukas", new Date(1998, 10, 30), 13, false, new Date(2019, 7, 1), 0, 0));
+        playersMuenster.add(new Verteidiger(21, 45, 0.76, UUID.randomUUID(), "Schulz", "Nico", new Date(1993, 4, 1), 18, false, new Date(2022, 7, 1), 0, 1));
+        playersMuenster.add(new Verteidiger(23, 50, 0.78, UUID.randomUUID(), "Petersen", "Lars", new Date(1995, 6, 9), 19, false, new Date(2021, 7, 1), 0, 2));
+        playersMuenster.add(new Verteidiger(28, 55, 0.81, UUID.randomUUID(), "Lindner", "Sebastian", new Date(1996, 3, 7), 20, false, new Date(2020, 7, 1), 1, 3));
+        playersMuenster.add(new Verteidiger(26, 52, 0.79, UUID.randomUUID(), "Kramer", "Tim", new Date(1997, 7, 19), 19, false, new Date(2019, 7, 1), 0, 1));
+        playersMuenster.add(new Verteidiger(29, 58, 0.82, UUID.randomUUID(), "Schmidt", "Andreas", new Date(1998, 9, 25), 20, false, new Date(2020, 7, 1), 0, 2));
+        auswechselSpielerMuenster.add(new Verteidiger(24, 49, 0.77, UUID.randomUUID(), "Weber", "Felix", new Date(1994, 10, 30), 18, false, new Date(2018, 7, 1), 0, 1));
 
+        // Bayern München
+        playersBayern.add(new Torwart(10, 15, 0.89, UUID.randomUUID(), "Neuer", "Manuel", new Date(1986, 3, 27), 22, false, new Date(2011, 7, 1), 0, 1));
+        auswechselSpielerBayern.add(new Torwart(5, 10, 0.83, UUID.randomUUID(), "Ulreich", "Sven", new Date(1988, 8, 3), 14, false, new Date(2015, 7, 1), 0, 0));
+
+        // Borussia Dortmund (BVB)
+        playersDortmund.add(new Torwart(9, 18, 0.87, UUID.randomUUID(), "Kobel", "Gregor", new Date(1997, 12, 6), 21, false, new Date(2021, 7, 1), 0, 1));
+        auswechselSpielerDortmund.add(new Torwart(4, 12, 0.81, UUID.randomUUID(), "Meyer", "Alexander", new Date(1991, 4, 13), 12, false, new Date(2022, 7, 1), 0, 0));
+
+        // FC Schalke 04
+        playersSchalke.add(new Torwart(8, 20, 0.85, UUID.randomUUID(), "Fährmann", "Ralf", new Date(1988, 9, 27), 19, false, new Date(2011, 7, 1), 0, 1));
+        auswechselSpielerSchalke.add(new Torwart(3, 14, 0.79, UUID.randomUUID(), "Schwolow", "Alexander", new Date(1992, 6, 2), 15, false, new Date(2022, 7, 1), 0, 0));
+
+        // SC Preußen Münster
+        playersMuenster.add(new Torwart(7, 22, 0.82, UUID.randomUUID(), "Schulze", "Jan", new Date(1995, 5, 14), 20, false, new Date(2020, 7, 1), 0, 1));
+        auswechselSpielerMuenster.add(new Torwart(2, 16, 0.75, UUID.randomUUID(), "Becker", "Lukas", new Date(1998, 10, 30), 13, false, new Date(2019, 7, 1), 0, 0));
+
+        players.addAll(playersBayern);
+        players.addAll(playersDortmund);
+        players.addAll(playersSchalke);
+        players.addAll(playersMuenster);
+        players.addAll(auswechselSpielerBayern);
+        players.addAll(auswechselSpielerDortmund);
+        players.addAll(auswechselSpielerSchalke);
+        players.addAll(auswechselSpielerMuenster);
+        dataModel.setSpielerList(players);
 
         clubs = new ArrayList<>();
-        clubs.add(new Mannschaft(1, "FC Bayern München", "Hansi Flick",new ArrayList<>(Arrays.asList(2, 3, 4, 17, 18, 19, 34, 35, 36, 37, 54)) , new ArrayList<>(Arrays.asList(1, 16, 33, 53)), Formation.f433, Liga.Bundesliga1));
-        clubs.add(new Mannschaft(2, "Borussia Dortmund", "Lucien Favre", new ArrayList<>(Arrays.asList(6, 7, 8, 21, 22, 23, 39, 40, 41, 42, 56)), new ArrayList<>(Arrays.asList(5, 20, 38, 55)), Formation.f433, Liga.Bundesliga1));
-        clubs.add(new Mannschaft(3, "FC Schalke 04", "David Wagner", new ArrayList<>(Arrays.asList(10, 11, 12, 25, 26, 27, 28, 44, 45, 46, 58)),new ArrayList<>(Arrays.asList(9, 24, 43, 57)), Formation.f343, Liga.Bundesliga1));
-        clubs.add(new Mannschaft(4,"SC Preußen Münster", "Sascha Hildmann",new ArrayList<>(Arrays.asList(14, 15, 30, 31, 32, 48, 49, 50, 51, 52, 60)) ,new ArrayList<>(Arrays.asList(13, 29, 47, 59)), Formation.f532, Liga.Bundesliga2));
+        // Create Mannschaft objects for each team
+        Mannschaft bayern = new Mannschaft(UUID.randomUUID(), "FC Bayern München", "Hansi Flick", new ArrayList<>(), new ArrayList<>(), Formation.f433, Liga.Bundesliga1);
+        Mannschaft dortmund = new Mannschaft(UUID.randomUUID(), "Borussia Dortmund", "Lucien Favre", new ArrayList<>(), new ArrayList<>(), Formation.f433, Liga.Bundesliga1);
+        Mannschaft schalke = new Mannschaft(UUID.randomUUID(), "FC Schalke 04", "David Wagner", new ArrayList<>(), new ArrayList<>(), Formation.f343, Liga.Bundesliga1);
+        Mannschaft muenster = new Mannschaft(UUID.randomUUID(), "SC Preußen Münster", "Sascha Hildmann", new ArrayList<>(), new ArrayList<>(), Formation.f532, Liga.Bundesliga2);
+
+// Add players to their respective Mannschaft objects
+        for (Spieler player : playersBayern) {
+            bayern.addFeldspieler(player.getPlayerId());
+        }
+        for (Spieler player : playersDortmund) {
+            dortmund.addFeldspieler(player.getPlayerId());
+        }
+        for (Spieler player : playersSchalke) {
+            schalke.addFeldspieler(player.getPlayerId());
+        }
+        for (Spieler player : playersMuenster) {
+            muenster.addFeldspieler(player.getPlayerId());
+        }
+
+        for (Spieler player : auswechselSpielerBayern) {
+            bayern.addAuswechselspieler(player.getPlayerId());
+        }
+        for (Spieler player : auswechselSpielerDortmund) {
+            dortmund.addAuswechselspieler(player.getPlayerId());
+        }
+        for (Spieler player : auswechselSpielerSchalke) {
+            schalke.addAuswechselspieler(player.getPlayerId());
+        }
+        for (Spieler player : auswechselSpielerMuenster) {
+            muenster.addAuswechselspieler(player.getPlayerId());
+        }
+
+        clubs.add(bayern);
+        clubs.add(dortmund);
+        clubs.add(schalke);
+        clubs.add(muenster);
 
         setLayout(new BorderLayout());
 
@@ -289,6 +344,7 @@ public class ClubPanel extends JPanel {
 
         Mannschaft selectedClub = (Mannschaft) clubComboBox.getSelectedItem();
         assert selectedClub != null;
+        dataModel.setSelectedClub(selectedClub);
         loadData(selectedClub.getClubId());
         loadPlayers(selectedClub.getClubId());
     }
@@ -313,7 +369,7 @@ public class ClubPanel extends JPanel {
     private void movePlayers(JTable sourceTable, DefaultTableModel sourceModel, DefaultTableModel targetModel) {
         int[] selectedRows = sourceTable.getSelectedRows();
         for (int i = selectedRows.length - 1; i >= 0; i--) {
-            int playerId = (int) sourceModel.getValueAt(selectedRows[i], 0);
+            UUID playerId = (UUID) sourceModel.getValueAt(selectedRows[i], 0);
             Model.Mannschaft club = getSelectedClub();
             club.transferPlayer(playerId);
             Model.Spieler player = getPlayerById(playerId);
@@ -323,16 +379,16 @@ public class ClubPanel extends JPanel {
         }
     }
 
-    private void loadPlayers(int clubId) {
+    private void loadPlayers(UUID clubId) {
         availableModel.setRowCount(0);
         selectedModel.setRowCount(0);
         //get club by clubId
         Model.Mannschaft club = getClubById(clubId);
-        for(int playerId : club.getAuswechselspieler()) {
+        for(UUID playerId : club.getAuswechselspieler()) {
             Model.Spieler player = getPlayerById(playerId);
             availableModel.addRow(new Object[]{player.getPlayerId(), player.getVorname(), player.getNachname(), player.getClass().getSimpleName(), player.spielerBewertung()});
         }
-        for(int playerId : club.getFeldspieler()) {
+        for(UUID playerId : club.getFeldspieler()) {
             Model.Spieler player = getPlayerById(playerId);
             selectedModel.addRow(new Object[]{player.getPlayerId(), player.getVorname(), player.getNachname(), player.getClass().getSimpleName(), player.spielerBewertung()});
         }
@@ -341,7 +397,7 @@ public class ClubPanel extends JPanel {
         scoreField.setText("Mannschaftsbewertung: " + mannschaftsbewertungAusgeben(clubId));
     }
 
-    private void loadData(int clubId){
+    private void loadData(UUID clubId){
         Mannschaft club = getClubById(clubId);
         TrainerField.setText(club.getTrainer());
         cboFormation.setSelectedItem(club.getFormation());
@@ -352,7 +408,7 @@ public class ClubPanel extends JPanel {
     public Model.Mannschaft getSelectedClub() {
         Mannschaft selectedClub = (Mannschaft) clubComboBox.getSelectedItem();
         assert selectedClub != null;
-        int clubId = selectedClub.getClubId();
+        UUID clubId = selectedClub.getClubId();
         for(Model.Mannschaft club : clubs) {
             if (club.getClubId() == clubId) {
                 return club;
@@ -361,7 +417,7 @@ public class ClubPanel extends JPanel {
         return null;
     }
 
-    public Model.Mannschaft getClubById(int clubId){
+    public Model.Mannschaft getClubById(UUID clubId){
         for(Model.Mannschaft club : clubs){
             if(club.getClubId() == clubId){
                 return club;
@@ -370,7 +426,7 @@ public class ClubPanel extends JPanel {
         return null;
     }
 
-    public Model.Spieler getPlayerById(int playerId){
+    public Model.Spieler getPlayerById(UUID playerId){
             for(Model.Spieler player : players){
             if(player.getPlayerId() == playerId){
                 return player;
@@ -378,11 +434,11 @@ public class ClubPanel extends JPanel {
         }
         return null; }
 
-    private boolean aufstellungPruefen(int clubId) {
+    private boolean aufstellungPruefen(UUID clubId) {
         Model.Mannschaft club = getClubById(clubId);
         return aufstellungPruefen(club.getFeldspieler(), club.getFormation());
     }
-    private boolean aufstellungPruefen(ArrayList<Integer> feldspieler, Formation formation)
+    private boolean aufstellungPruefen(ArrayList<UUID> feldspieler, Formation formation)
     {
         if (feldspieler.size() != 11) {
             return false;
@@ -392,7 +448,7 @@ public class ClubPanel extends JPanel {
         int mittelfeldspielerCount = 0;
         int stuermerCount = 0;
 
-        for (int spielerId : feldspieler) {
+        for (UUID spielerId : feldspieler) {
             Model.Spieler spieler = getPlayerById(spielerId);
             if (spieler instanceof Verteidiger) {
                 verteidigerCount++;
@@ -407,18 +463,17 @@ public class ClubPanel extends JPanel {
                 mittelfeldspielerCount == formation.getMittelfeldspielerAnzahl() &&
                 stuermerCount == formation.getStuermerAnzahl();
     }
-    public Double mannschaftsbewertungAusgeben(int clubId)
+    public Double mannschaftsbewertungAusgeben(UUID clubId)
     {
         return mannschaftsbewertungAusgeben(getClubById(clubId).getFeldspieler());
     }
-    public Double mannschaftsbewertungAusgeben(ArrayList<Integer> feldspieler)
+    public Double mannschaftsbewertungAusgeben(ArrayList<UUID> feldspieler)
     {
         double bewertung = 0;
-        for (int playerId : feldspieler) {
+        for (UUID playerId : feldspieler) {
             bewertung += getPlayerById(playerId).spielerBewertung();
         }
 
         return Math.round((bewertung / 11) * 100.0) / 100.0;
     }
-
 }

@@ -3,6 +3,7 @@ package Model;
 
 
 import java.util.Date;
+import java.util.UUID;
 
 import static java.lang.Math.round;
 
@@ -12,7 +13,7 @@ public class Mittelfeldspieler extends Spieler {
     private int tore;
     private double passquote;
 
-    public Mittelfeldspieler(int anzahlVorlagen, int tore, double passquote,int playerId, String nachname, String vorname, Date geburtsdatum, int gespielteSpiele, boolean gesperrt, Date vereinsbeitritt, int roteKarten, int gelbeKarten) {
+    public Mittelfeldspieler(int anzahlVorlagen, int tore, double passquote, UUID playerId, String nachname, String vorname, Date geburtsdatum, int gespielteSpiele, boolean gesperrt, Date vereinsbeitritt, int roteKarten, int gelbeKarten) {
         super(playerId, nachname, vorname, geburtsdatum, gespielteSpiele, gesperrt, vereinsbeitritt, roteKarten, gelbeKarten);
         this.anzahlVorlagen = anzahlVorlagen;
         this.tore = tore;

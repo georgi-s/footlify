@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
+import java.util.UUID;
 
 import Model.*;
 
@@ -20,8 +21,14 @@ public class EditPlayerWindow extends JFrame {
         setLayout(new BorderLayout());
 
         listModel = new DefaultListModel<>();
-        for (Spieler player : dataModel.getSpielerList()) {
-            listModel.addElement(player);
+        Mannschaft selectedClub = dataModel.getSelectedClub();
+        if (selectedClub != null) {
+            for (UUID playerId : selectedClub.getFeldspieler()) {
+                Spieler player = dataModel.getSpielerById(playerId);
+                if (player != null) {
+                    listModel.addElement(player);
+                }
+            }
         }
 
         playerList = new JList<>(listModel);

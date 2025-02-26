@@ -2,10 +2,11 @@ package Model;
 
 
 import java.util.Date;
+import java.util.UUID;
 
 
 public abstract class Spieler {
-    private int playerId;
+    private UUID playerId;
     private String nachname;
     private String vorname;
     private Date geburtsdatum;
@@ -15,7 +16,7 @@ public abstract class Spieler {
     private int roteKarten;
     private int gelbeKarten;
 
-    public Spieler(int playerId, String nachname, String vorname, Date geburtsdatum, int gespielteSpiele, boolean gesperrt, Date vereinsbeitritt, int roteKarten, int gelbeKarten) {
+    public Spieler(UUID playerId, String nachname, String vorname, Date geburtsdatum, int gespielteSpiele, boolean gesperrt, Date vereinsbeitritt, int roteKarten, int gelbeKarten) {
         this.playerId = playerId;
         this.nachname = nachname;
         this.vorname = vorname;
@@ -104,11 +105,11 @@ public abstract class Spieler {
         this.gelbeKarten = gelbeKarten;
     }
 
-    public int getPlayerId() {
+    public UUID getPlayerId() {
         return playerId;
     }
 
-    public void setPlayerId(int playerId) {
+    public void setPlayerId(UUID playerId) {
         this.playerId = playerId;
 
     }

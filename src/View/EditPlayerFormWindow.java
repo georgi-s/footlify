@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat;
 import Model.*;
 
 public class EditPlayerFormWindow extends JFrame {
-    private JTextField playerIdField;
+    private JLabel playerIdField;
     private JTextField nachnameField;
     private JTextField vornameField;
     private JTextField geburtsdatumField;
@@ -31,7 +31,7 @@ public class EditPlayerFormWindow extends JFrame {
         setSize(400, 600);
         setLayout(new GridLayout(0, 2));
 
-        playerIdField = new JTextField(String.valueOf(player.getPlayerId()));
+        playerIdField = new JLabel(String.valueOf(player.getPlayerId()));
         nachnameField = new JTextField(player.getNachname());
         vornameField = new JTextField(player.getVorname());
         geburtsdatumField = new JTextField(dateFormat.format(player.getGeburtsdatum()));
@@ -110,7 +110,6 @@ public class EditPlayerFormWindow extends JFrame {
 
     private void applyChanges() {
         try {
-            player.setPlayerId(Integer.parseInt(playerIdField.getText()));
             player.setNachname(nachnameField.getText());
             player.setVorname(vornameField.getText());
             player.setGeburtsdatum(dateFormat.parse(geburtsdatumField.getText()));
