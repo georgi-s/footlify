@@ -9,19 +9,19 @@ import java.text.SimpleDateFormat;
 import Model.*;
 
 public class EditPlayerFormWindow extends JFrame {
-    private JLabel playerIdField;
-    private JTextField nachnameField;
-    private JTextField vornameField;
-    private JTextField geburtsdatumField;
-    private JSpinner gespielteSpieleSpinner;
-    private JCheckBox gesperrtCheckBox;
-    private JTextField vereinsbeitrittField;
-    private JSpinner roteKartenSpinner;
-    private JSpinner gelbeKartenSpinner;
-    private JPanel additionalFieldsPanel;
-    private DataModel dataModel;
-    private Spieler player;
-    private SimpleDateFormat dateFormat;
+    private final JLabel playerIdField;
+    private final JTextField nachnameField;
+    private final JTextField vornameField;
+    private final JTextField geburtsdatumField;
+    private final JSpinner gespielteSpieleSpinner;
+    private final JCheckBox gesperrtCheckBox;
+    private final JTextField vereinsbeitrittField;
+    private final JSpinner roteKartenSpinner;
+    private final JSpinner gelbeKartenSpinner;
+    private final JPanel additionalFieldsPanel;
+    private final DataModel dataModel;
+    private final Spieler player;
+    private final SimpleDateFormat dateFormat;
 
     public EditPlayerFormWindow(DataModel dataModel, Spieler player) {
         this.dataModel = dataModel;
@@ -67,34 +67,25 @@ public class EditPlayerFormWindow extends JFrame {
         updateAdditionalFields();
 
         JButton applyButton = new JButton("Apply");
-        applyButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                applyChanges();
-            }
-        });
+        applyButton.addActionListener(e -> applyChanges());
         add(applyButton);
     }
 
     private void updateAdditionalFields() {
         additionalFieldsPanel.removeAll();
-        if (player instanceof Verteidiger) {
-            Verteidiger verteidiger = (Verteidiger) player;
+        if (player instanceof Verteidiger verteidiger) {
             addAdditionalField("Geblockte Angriffe:", new JSpinner(new SpinnerNumberModel(verteidiger.getGeblockteAngriffe(), 0, Integer.MAX_VALUE, 1)));
             addAdditionalField("Gewonnene Zweikämpfe:", new JSpinner(new SpinnerNumberModel(verteidiger.getGewonneneZweikaempfe(), 0, Integer.MAX_VALUE, 1)));
             addAdditionalField("Passquote:", new JTextField(String.valueOf(verteidiger.getPassqoute())));
-        } else if (player instanceof Stuermer) {
-            Stuermer stuermer = (Stuermer) player;
+        } else if (player instanceof Stuermer stuermer) {
             addAdditionalField("Geschossene Tore:", new JSpinner(new SpinnerNumberModel(stuermer.getGeschosseneTore(), 0, Integer.MAX_VALUE, 1)));
             addAdditionalField("Schussgenauigkeit:", new JTextField(String.valueOf(stuermer.getSchussgenauigkeit())));
             addAdditionalField("Chancenverwertung:", new JTextField(String.valueOf(stuermer.getChancenverwertung())));
-        } else if (player instanceof Mittelfeldspieler) {
-            Mittelfeldspieler mittelfeldspieler = (Mittelfeldspieler) player;
+        } else if (player instanceof Mittelfeldspieler mittelfeldspieler) {
             addAdditionalField("Anzahl Vorlagen:", new JSpinner(new SpinnerNumberModel(mittelfeldspieler.getAnzahlVorlagen(), 0, Integer.MAX_VALUE, 1)));
             addAdditionalField("Tore:", new JSpinner(new SpinnerNumberModel(mittelfeldspieler.getTore(), 0, Integer.MAX_VALUE, 1)));
             addAdditionalField("Passquote:", new JTextField(String.valueOf(mittelfeldspieler.getPassquote())));
-        } else if (player instanceof Torwart) {
-            Torwart torwart = (Torwart) player;
+        } else if (player instanceof Torwart torwart) {
             addAdditionalField("Spiele ohne Gegentor:", new JSpinner(new SpinnerNumberModel(torwart.getSpieleOhneGegentor(), 0, Integer.MAX_VALUE, 1)));
             addAdditionalField("Gegentore:", new JSpinner(new SpinnerNumberModel(torwart.getGegentore(), 0, Integer.MAX_VALUE, 1)));
             addAdditionalField("Haltequote:", new JTextField(String.valueOf(torwart.getHaltequote())));
@@ -119,28 +110,32 @@ public class EditPlayerFormWindow extends JFrame {
             player.setRoteKarten((int) roteKartenSpinner.getValue());
             player.setGelbeKarten((int) gelbeKartenSpinner.getValue());
 
-            if (player instanceof Verteidiger) {
-                Verteidiger verteidiger = (Verteidiger) player;
-                verteidiger.setGeblockteAngriffe((int) ((JSpinner) additionalFieldsPanel.getComponent(1)).getValue());
-                verteidiger.setGewonneneZweikaempfe((int) ((JSpinner) additionalFieldsPanel.getComponent(3)).getValue());
-                verteidiger.setPassqoute(Double.parseDouble(((JTextField) additionalFieldsPanel.getComponent(5)).getText()));
-            } else if (player instanceof Stuermer) {
-                Stuermer stuermer = (Stuermer) player;
-                stuermer.setGeschosseneTore((int) ((JSpinner) additionalFieldsPanel.getComponent(1)).getValue());
-                stuermer.setSchussgenauigkeit(Double.parseDouble(((JTextField) additionalFieldsPanel.getComponent(3)).getText()));
-                stuermer.setChancenverwertung(Double.parseDouble(((JTextField) additionalFieldsPanel.getComponent(5)).getText()));
-            } else if (player instanceof Mittelfeldspieler) {
-                Mittelfeldspieler mittelfeldspieler = (Mittelfeldspieler) player;
-                mittelfeldspieler.setAnzahlVorlagen((int) ((JSpinner) additionalFieldsPanel.getComponent(1)).getValue());
-                mittelfeldspieler.setTore((int) ((JSpinner) additionalFieldsPanel.getComponent(3)).getValue());
-                mittelfeldspieler.setPassquote(Double.parseDouble(((JTextField) additionalFieldsPanel.getComponent(5)).getText()));
-            } else if (player instanceof Torwart) {
-                Torwart torwart = (Torwart) player;
-                torwart.setSpieleOhneGegentor((int) ((JSpinner) additionalFieldsPanel.getComponent(1)).getValue());
-                torwart.setGegentore((int) ((JSpinner) additionalFieldsPanel.getComponent(3)).getValue());
-                torwart.setHaltequote(Double.parseDouble(((JTextField) additionalFieldsPanel.getComponent(5)).getText()));
+            switch (player) {
+                case Verteidiger verteidiger -> {
+                    verteidiger.setGeblockteAngriffe((int) ((JSpinner) additionalFieldsPanel.getComponent(1)).getValue());
+                    verteidiger.setGewonneneZweikaempfe((int) ((JSpinner) additionalFieldsPanel.getComponent(3)).getValue());
+                    verteidiger.setPassqoute(Double.parseDouble(((JTextField) additionalFieldsPanel.getComponent(5)).getText()));
+                }
+                case Stuermer stuermer -> {
+                    stuermer.setGeschosseneTore((int) ((JSpinner) additionalFieldsPanel.getComponent(1)).getValue());
+                    stuermer.setSchussgenauigkeit(Double.parseDouble(((JTextField) additionalFieldsPanel.getComponent(3)).getText()));
+                    stuermer.setChancenverwertung(Double.parseDouble(((JTextField) additionalFieldsPanel.getComponent(5)).getText()));
+                }
+                case Mittelfeldspieler mittelfeldspieler -> {
+                    mittelfeldspieler.setAnzahlVorlagen((int) ((JSpinner) additionalFieldsPanel.getComponent(1)).getValue());
+                    mittelfeldspieler.setTore((int) ((JSpinner) additionalFieldsPanel.getComponent(3)).getValue());
+                    mittelfeldspieler.setPassquote(Double.parseDouble(((JTextField) additionalFieldsPanel.getComponent(5)).getText()));
+                }
+                case Torwart torwart -> {
+                    torwart.setSpieleOhneGegentor((int) ((JSpinner) additionalFieldsPanel.getComponent(1)).getValue());
+                    torwart.setGegentore((int) ((JSpinner) additionalFieldsPanel.getComponent(3)).getValue());
+                    torwart.setHaltequote(Double.parseDouble(((JTextField) additionalFieldsPanel.getComponent(5)).getText()));
+                }
+                default -> {
+                }
             }
 
+            dataModel.notifyListeners();
             JOptionPane.showMessageDialog(this, "Player updated successfully!");
             dispose();
         } catch (ParseException ex) {

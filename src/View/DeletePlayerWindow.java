@@ -9,9 +9,9 @@ import java.util.UUID;
 import Model.*;
 
 public class DeletePlayerWindow extends JFrame {
-    private JList<Spieler> playerList;
-    private DefaultListModel<Spieler> listModel;
-    private DataModel dataModel;
+    private final JList<Spieler> playerList;
+    private final DefaultListModel<Spieler> listModel;
+    private final DataModel dataModel;
 
     public DeletePlayerWindow(DataModel dataModel) {
         this.dataModel = dataModel;
@@ -41,12 +41,7 @@ public class DeletePlayerWindow extends JFrame {
         add(new JScrollPane(playerList), BorderLayout.CENTER);
 
         JButton deleteButton = new JButton("Delete");
-        deleteButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                deletePlayer();
-            }
-        });
+        deleteButton.addActionListener(e -> deletePlayer());
         add(deleteButton, BorderLayout.SOUTH);
     }
 
