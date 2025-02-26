@@ -67,4 +67,9 @@ public class Turnier {
     public void removeTeilnehmer(int clubId){
         this.teilnehmer.remove(Integer.valueOf(clubId));
     }
+
+    @Override
+    public String toString() {
+        return ort;
+    }
 }

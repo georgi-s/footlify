@@ -1,7 +1,9 @@
-package GUI;
+package View;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class DeleteTurnierFrame extends JFrame {
     public DeleteTurnierFrame() {
@@ -33,6 +35,16 @@ public class DeleteTurnierFrame extends JFrame {
         gbc.gridy = 2;
         gbc.gridwidth = 2;
         panel.add(loeschenButton, gbc);
+
+        // Add action listener to the button
+        loeschenButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+
+                JOptionPane.showMessageDialog(DeleteTurnierFrame.this, "Turnier gelöscht", "Info", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
 
         // Add the panel to the frame
         add(panel, BorderLayout.CENTER);

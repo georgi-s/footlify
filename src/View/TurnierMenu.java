@@ -16,9 +16,9 @@ public class TurnierMenu extends JPanel {
         JMenuItem editTurnier = new JMenuItem("Turnier editieren");
         JMenuItem deleteTurnier = new JMenuItem("Turnier löschen");
 
-        GUI.CreateTurnierFrame createFrame = new GUI.CreateTurnierFrame();
-        GUI.DeleteTurnierFrame deleteFrame = new GUI.DeleteTurnierFrame();
-        GUI.EditTurnierFrame editFrame = new GUI.EditTurnierFrame();
+        CreateTurnierFrame createFrame = new CreateTurnierFrame();
+        DeleteTurnierFrame deleteFrame = new DeleteTurnierFrame();
+        EditTurnierFrame editFrame = new EditTurnierFrame();
 
         turnierMenu.add(createTurnier);
         turnierMenu.add(editTurnier);
