@@ -1,0 +1,24 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://db:5432/sportverein
+    username: postgres
+    password: postgres
+  jpa:
+    hibernate:
+      ddl-auto: create-drop  # Für Entwicklung, ändere zu 'update' für Produktion
+    show-sql: true
+    defer-datasource-initialization: true  # Erlaubt SQL-Initialisierung nach Hibernate
+  sql:
+    init:
+      mode: always  # SQL-Dateien immer ausführen
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always
+      probes:
+        enabled: true
