@@ -21,6 +21,12 @@ public class Mannschaft {
         this.liga = liga;
     }
 
+    public void editClub(String name, String trainer, Formation formation, Liga liga) {
+        this.name = name;
+        this.trainer = trainer;
+        this.formation = formation;
+        this.liga = liga;
+    }
     
 
     public UUID getClubId() {

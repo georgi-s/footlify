@@ -134,24 +134,33 @@ public class EditTurnierFrame extends JFrame {
         turnierBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                selectedTurnier = (Turnier) turnierBox.getSelectedItem();
-                assert selectedTurnier != null;
-                mannschaft1Box.setSelectedItem(dataModel.getClubById(selectedTurnier.getTeilnehmer().get(0)));
-                mannschaft2Box.setSelectedItem(dataModel.getClubById(selectedTurnier.getTeilnehmer().get(1)));
-                ortField.setText(selectedTurnier.getOrt());
-                datumField.setText(selectedTurnier.getDate());
-                preisgeldField.setText(selectedTurnier.getInsgPreisgeld() + "");
+                if(!dataModel.getTurnierList().isEmpty()) {
+                    selectedTurnier = (Turnier) turnierBox.getSelectedItem();
+                    assert selectedTurnier != null;
+                    mannschaft1Box.setSelectedItem(dataModel.getClubById(selectedTurnier.getTeilnehmer().get(0)));
+                    mannschaft2Box.setSelectedItem(dataModel.getClubById(selectedTurnier.getTeilnehmer().get(1)));
+                    ortField.setText(selectedTurnier.getOrt());
+                    datumField.setText(selectedTurnier.getDate());
+                    preisgeldField.setText(selectedTurnier.getInsgPreisgeld() + "");
+                }
+                else{
+                    JOptionPane.showMessageDialog(EditTurnierFrame.this, "Keine Turniere vorhanden", "Info", JOptionPane.INFORMATION_MESSAGE);
+                }
             }
         });
 
-        selectedTurnier = (Turnier) turnierBox.getSelectedItem();
-        assert selectedTurnier != null;
-        mannschaft1Box.setSelectedItem(dataModel.getClubById(selectedTurnier.getTeilnehmer().get(0)));
-        mannschaft2Box.setSelectedItem(dataModel.getClubById(selectedTurnier.getTeilnehmer().get(1)));
-        ortField.setText(selectedTurnier.getOrt());
-        datumField.setText(selectedTurnier.getDate());
-        preisgeldField.setText(selectedTurnier.getInsgPreisgeld()+"");
+        if(!dataModel.getTurnierList().isEmpty()) {
 
+            selectedTurnier = (Turnier) turnierBox.getSelectedItem();
+            assert selectedTurnier != null;
+            mannschaft1Box.setSelectedItem(dataModel.getClubById(selectedTurnier.getTeilnehmer().get(0)));
+            mannschaft2Box.setSelectedItem(dataModel.getClubById(selectedTurnier.getTeilnehmer().get(1)));
+            ortField.setText(selectedTurnier.getOrt());
+            datumField.setText(selectedTurnier.getDate());
+            preisgeldField.setText(selectedTurnier.getInsgPreisgeld() + "");
+        }
+        else
+            JOptionPane.showMessageDialog(EditTurnierFrame.this, "Keine Turniere vorhanden", "Info", JOptionPane.INFORMATION_MESSAGE);
         // Make the frame visible
         setVisible(false);
     }

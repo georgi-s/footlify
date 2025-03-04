@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 public class ClubPanel extends JPanel implements DataModelListener {
-    private final JComboBox<Mannschaft> clubComboBox;
+    private JComboBox<Mannschaft> clubComboBox;
     private final DefaultTableModel availableModel;
     private final DefaultTableModel selectedModel;
     private final DataModel dataModel;
@@ -195,22 +195,7 @@ public class ClubPanel extends JPanel implements DataModelListener {
         loadPlayers(selectedClub.getClubId());
     }
 
-    public JMenu getMenu() {
-        JMenu clubMenu = new JMenu("Club");
-        JMenuItem createClub = new JMenuItem("Club erstellen");
-        JMenuItem editClub = new JMenuItem("Club editieren");
-        JMenuItem deleteClub = new JMenuItem("Club löschen");
 
-        clubMenu.add(createClub);
-        clubMenu.add(editClub);
-        clubMenu.add(deleteClub);
-
-        createClub.addActionListener(e -> JOptionPane.showMessageDialog(this, "Insert Dialog to create Club"));
-        editClub.addActionListener(e -> JOptionPane.showMessageDialog(this, "Insert Dialog to edit Club"));
-        deleteClub.addActionListener(e -> JOptionPane.showMessageDialog(this, "Insert Dialog to delete Club"));
-
-        return clubMenu;
-    }
 
     private void movePlayers(JTable sourceTable, DefaultTableModel sourceModel, DefaultTableModel targetModel) {
         int[] selectedRows = sourceTable.getSelectedRows();
@@ -302,5 +287,9 @@ public class ClubPanel extends JPanel implements DataModelListener {
 
         loadPlayers(dataModel.getSelectedClub().getClubId());
         loadData(dataModel.getSelectedClub().getClubId());
+        //reload data of clubCombobox
+        clubComboBox.setModel(new DefaultComboBoxModel<>(dataModel.getMannschaftList().toArray(new Mannschaft[0])));
     }
+
+
 }

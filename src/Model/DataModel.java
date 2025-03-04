@@ -110,6 +110,10 @@ public class DataModel {
         }
         return null;
     }
+    public void deleteTurnier(UUID turnierId) {
+        turnierList.remove(getTurnierById(turnierId));
+        notifyListeners();
+    }
 
 
     public void addDataModelListener(DataModelListener listener) {

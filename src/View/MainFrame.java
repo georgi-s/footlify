@@ -6,6 +6,7 @@ import Model.DataModel;
 
 public class MainFrame extends JFrame {
     private ClubPanel clubPanel;
+    private ClubMenu clubMenu;
     private TurnierMenu turnierMenu;
     private PlayerMenu playerMenu;
     private DataModel dataModel;
@@ -21,11 +22,13 @@ public class MainFrame extends JFrame {
         JMenuBar menuBar = new JMenuBar();
         setJMenuBar(menuBar);
 
-        clubPanel = new ClubPanel(this.dataModel);
+        clubMenu = new ClubMenu(this.dataModel);
         turnierMenu = new TurnierMenu(this.dataModel);
         playerMenu = new PlayerMenu(this.dataModel);
 
-        menuBar.add(clubPanel.getMenu());
+        clubPanel = new ClubPanel(this.dataModel);
+
+        menuBar.add(clubMenu.getMenu());
         menuBar.add(turnierMenu.getMenu());
         menuBar.add(playerMenu.getMenu());
 
