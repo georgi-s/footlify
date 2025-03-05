@@ -1,7 +1,8 @@
+// path: backend/src/test/java/com/sportverein/entity/StuermerTest.java
 package com.sportverein.entity;
 
 import org.junit.jupiter.api.Test;
-import java.util.Date;
+import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.*;
 
 class StuermerTest {
@@ -9,8 +10,8 @@ class StuermerTest {
     @Test
     void testSpielerstatistikAusgeben() {
         // Testdaten vorbereiten
-        Date geburtsdatum = new Date(80, 0, 1);      // 1. Januar 1980
-        Date vereinsbeitritt = new Date(105, 0, 1);  // 1. Januar 2005
+        LocalDate geburtsdatum = LocalDate.of(1980, 1, 1);
+        LocalDate vereinsbeitritt = LocalDate.of(2005, 1, 1);
 
         Stuermer stuermer = new Stuermer();
         stuermer.setGeschosseneTore(10);

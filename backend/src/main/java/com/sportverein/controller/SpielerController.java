@@ -1,13 +1,22 @@
 package com.sportverein.controller;
 
-import com.sportverein.entity.*;
+import com.sportverein.entity.Spieler;
+import com.sportverein.entity.Stuermer;
+import com.sportverein.entity.Torwart;
+import com.sportverein.entity.Verteidiger;
+import com.sportverein.entity.Mittelfeldspieler;
+import com.sportverein.model.SpielerDTO;
+import com.sportverein.model.StuermerDTO;
+import com.sportverein.mapper.SpielerMapper;
 import com.sportverein.service.SpielerService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/spieler")
@@ -16,10 +25,15 @@ public class SpielerController {
 
     @Autowired
     private SpielerService spielerService;
+    
+    @Autowired
+    private SpielerMapper spielerMapper;
 
     @GetMapping
-    public List<Spieler> getAllSpieler() {
-        return spielerService.getAllSpieler();
+    public List<SpielerDTO> getAllSpieler() {
+        return spielerService.getAllSpieler().stream()
+                .map(spielerMapper::toDTO)
+                .collect(Collectors.toList());
     }
 
     @GetMapping("/torwart")
@@ -38,13 +52,16 @@ public class SpielerController {
     }
 
     @GetMapping("/stuermer")
-    public List<Stuermer> getAllStuermer() {
-        return spielerService.getAllStuermer();
+    public List<StuermerDTO> getAllStuermer() {
+        return spielerService.getAllStuermer().stream()
+                .map(spielerMapper::toStuermerDTO)
+                .collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Spieler> getSpielerById(@PathVariable Long id) {
+    public ResponseEntity<SpielerDTO> getSpielerById(@PathVariable Long id) {
         return spielerService.getSpielerById(id)
+                .map(spielerMapper::toDTO)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
@@ -71,15 +88,18 @@ public class SpielerController {
     }
 
     @GetMapping("/stuermer/{id}")
-    public ResponseEntity<Stuermer> getSturmerById(@PathVariable Long id) {
+    public ResponseEntity<StuermerDTO> getStuermerById(@PathVariable Long id) {
         return spielerService.getStuermerById(id)
+                .map(spielerMapper::toStuermerDTO)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping("/mannschaft/{mannschaftId}")
-    public List<Spieler> getSpielerByMannschaft(@PathVariable Long mannschaftId) {
-        return spielerService.getSpielerByMannschaft(mannschaftId);
+    public List<SpielerDTO> getSpielerByMannschaft(@PathVariable Long mannschaftId) {
+        return spielerService.getSpielerByMannschaft(mannschaftId).stream()
+                .map(spielerMapper::toDTO)
+                .collect(Collectors.toList());
     }
 
     @PostMapping("/torwart")
@@ -98,8 +118,14 @@ public class SpielerController {
     }
 
     @PostMapping("/stuermer")
-    public Stuermer createStuermer(@RequestBody Stuermer stuermer) {
-        return spielerService.saveStuermer(stuermer);
+    public ResponseEntity<StuermerDTO> createStuermer(@RequestBody StuermerDTO stuermerDTO) {
+        try {
+            Stuermer stuermer = spielerMapper.toStuermerEntity(stuermerDTO);
+            Stuermer savedStuermer = spielerService.saveStuermer(stuermer);
+            return ResponseEntity.ok(spielerMapper.toStuermerDTO(savedStuermer));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @PutMapping("/{id}")

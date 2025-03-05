@@ -2,7 +2,7 @@ package com.sportverein.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data
 @Entity
@@ -16,14 +16,12 @@ public abstract class Spieler {
     private String nachname;
     private String vorname;
     
-    @Temporal(TemporalType.DATE)
-    private Date geburtsdatum;
+    private LocalDate geburtsdatum;
     
     private int gespielteSpiele;
     private boolean gesperrt;
     
-    @Temporal(TemporalType.DATE)
-    private Date vereinsbeitritt;
+    private LocalDate vereinsbeitritt;
     
     private int roteKarten;
     private int gelbeKarten;

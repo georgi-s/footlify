@@ -1,7 +1,7 @@
 // backend/src/main/java/com/sportverein/service/DataService.java
 package com.sportverein.service;
 
-import com.sportverein.model.*;
+import com.sportverein.entity.*;
 import com.sportverein.repository.SpielerRepository;
 import com.sportverein.repository.MannschaftRepository;
 import com.sportverein.repository.TurnierRepository;

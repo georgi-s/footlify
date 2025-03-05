@@ -16,7 +16,7 @@ public class DataSeeder {
             // Prüfen ob Daten bereits existieren
             Long count = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM liga", Long.class);
             
-            if (count == 0) {
+            if (count == null || count == 0) {
                 // Daten aus data.sql werden automatisch geladen
                 System.out.println("Datenbank wurde mit Testdaten initialisiert");
             } else {

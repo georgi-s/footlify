@@ -1,8 +1,7 @@
 package com.sportverein.service;
 
-import com.sportverein.model.Mannschaft;
-import com.sportverein.model.Formation;
-import com.sportverein.model.Liga;
+import com.sportverein.entity.Mannschaft;
+import com.sportverein.entity.Liga;
 import com.sportverein.repository.MannschaftRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

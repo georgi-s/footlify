@@ -1,8 +1,7 @@
 package com.sportverein.repository;
 
-import com.sportverein.model.Mannschaft;
-import com.sportverein.model.Formation;
-import com.sportverein.model.Liga;
+import com.sportverein.entity.Mannschaft;
+import com.sportverein.entity.Liga;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import java.util.List;

@@ -1,8 +1,7 @@
 package com.sportverein.controller;
 
-import com.sportverein.model.Mannschaft;
-import com.sportverein.model.Formation;
-import com.sportverein.model.Liga;
+import com.sportverein.entity.Mannschaft;
+import com.sportverein.entity.Liga;
 import com.sportverein.service.MannschaftService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -61,6 +60,7 @@ public class MannschaftController {
             return mannschaftService.getMannschaftById(id)
                     .map(mannschaft -> {
                         mannschaft.setName(mannschaftDetails.getName());
+                        mannschaft.setTrainer(mannschaftDetails.getTrainer());
                         mannschaft.setSpieler(mannschaftDetails.getSpieler());
                         mannschaft.setLiga(mannschaftDetails.getLiga());
                         mannschaft.setFormation(mannschaftDetails.getFormation());

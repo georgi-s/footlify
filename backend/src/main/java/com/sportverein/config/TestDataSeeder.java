@@ -7,8 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
-import java.util.Date;
-import java.util.ArrayList;
+import java.time.LocalDate;
 
 @Configuration
 @Profile("dev")
@@ -32,10 +31,10 @@ public class TestDataSeeder {
             mueller.setChancenverwertung(0.30);
             mueller.setNachname("Müller");
             mueller.setVorname("Thomas");
-            mueller.setGeburtsdatum(new Date(89, 9, 13));
+            mueller.setGeburtsdatum(LocalDate.of(1989, 10, 13));
             mueller.setGespielteSpiele(20);
             mueller.setGesperrt(false);
-            mueller.setVereinsbeitritt(new Date(100, 7, 1));
+            mueller.setVereinsbeitritt(LocalDate.of(2000, 8, 1));
             mueller.setRoteKarten(0);
             mueller.setGelbeKarten(2);
             mueller.setMannschaft(bayernMuenchen);
@@ -47,10 +46,10 @@ public class TestDataSeeder {
             lewandowski.setChancenverwertung(0.40);
             lewandowski.setNachname("Lewandowski");
             lewandowski.setVorname("Robert");
-            lewandowski.setGeburtsdatum(new Date(88, 8, 21));
+            lewandowski.setGeburtsdatum(LocalDate.of(1988, 9, 21));
             lewandowski.setGespielteSpiele(18);
             lewandowski.setGesperrt(false);
-            lewandowski.setVereinsbeitritt(new Date(114, 7, 1));
+            lewandowski.setVereinsbeitritt(LocalDate.of(2014, 8, 1));
             lewandowski.setRoteKarten(1);
             lewandowski.setGelbeKarten(1);
             lewandowski.setMannschaft(bayernMuenchen);
@@ -63,10 +62,10 @@ public class TestDataSeeder {
             kimmich.setPassquote(0.88);
             kimmich.setNachname("Kimmich");
             kimmich.setVorname("Joshua");
-            kimmich.setGeburtsdatum(new Date(95, 2, 8));
+            kimmich.setGeburtsdatum(LocalDate.of(1995, 3, 8));
             kimmich.setGespielteSpiele(22);
             kimmich.setGesperrt(false);
-            kimmich.setVereinsbeitritt(new Date(115, 7, 1));
+            kimmich.setVereinsbeitritt(LocalDate.of(2015, 8, 1));
             kimmich.setRoteKarten(0);
             kimmich.setGelbeKarten(3);
             kimmich.setMannschaft(bayernMuenchen);
@@ -79,10 +78,10 @@ public class TestDataSeeder {
             deLigt.setPassqoute(0.89);
             deLigt.setNachname("de Ligt");
             deLigt.setVorname("Matthijs");
-            deLigt.setGeburtsdatum(new Date(99, 8, 12));
+            deLigt.setGeburtsdatum(LocalDate.of(1999, 9, 12));
             deLigt.setGespielteSpiele(22);
             deLigt.setGesperrt(false);
-            deLigt.setVereinsbeitritt(new Date(122, 7, 1));
+            deLigt.setVereinsbeitritt(LocalDate.of(2022, 8, 1));
             deLigt.setRoteKarten(1);
             deLigt.setGelbeKarten(3);
             deLigt.setMannschaft(bayernMuenchen);
