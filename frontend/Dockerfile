@@ -7,7 +7,7 @@ RUN npm ci
 
 # Copy source and build
 COPY . .
-ENV REACT_APP_API_URL=http://localhost:8080/api
+ENV REACT_APP_API_URL=http://localhost:8082/api
 RUN npm run build
 
 # Production environment

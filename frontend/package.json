@@ -36,7 +36,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "concurrently \"npm run start:frontend\" \"npm run start:backend\"",
+    "start:frontend": "react-scripts start",
     "start:backend": "cd ../backend && ./mvnw spring-boot:run",
     "dev": "react-scripts start",
     "build": "react-scripts build",

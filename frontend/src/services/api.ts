@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Spieler, Mannschaft, Liga, Formation } from '../types';
 
-const API_BASE_URL = 'http://localhost:8080/api';
+const API_BASE_URL = 'http://localhost:8082/api';
 
 // API Response Types
 export type ApiResponseData<T> = { data: T };
