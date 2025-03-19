@@ -1,0 +1,41 @@
+spring:
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/sportverein}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 5
+      idle-timeout: 120000
+      connection-timeout: 30000
+  jpa:
+    hibernate:
+      ddl-auto: none  # Keine automatischen Schema-Änderungen in Produktion
+    show-sql: false
+    properties:
+      hibernate:
+        '[format_sql]': false
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    locations: classpath:db/migration
+    baseline-version: 0
+    
+# Logging sparsam in Produktion
+logging:
+  level:
+    '[root]': WARN
+    '[com.sportverein]': INFO
+    '[org.springframework]': WARN
+
+# Begrenzte Actuator-Endpunkte für Produktionssicherheit
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: never

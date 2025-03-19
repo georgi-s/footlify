@@ -1,0 +1,15 @@
+FROM node:18-alpine
+
+WORKDIR /app
+
+# Umgebungsvariablen für bessere Node-Performance
+ENV NODE_ENV=development
+ENV PATH /app/node_modules/.bin:$PATH
+
+# Abhängigkeiten zuerst installieren (für Docker-Caching)
+COPY package.json package-lock.json* ./
+RUN npm install
+
+# Verwende den Dev-Server für Hot-Reload
+EXPOSE 3000
+CMD ["npm", "start"]
