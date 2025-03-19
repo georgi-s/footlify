@@ -1,92 +1,66 @@
 package com.sportverein.service;
 
-import com.sportverein.entity.*;
+import com.sportverein.entity.SpielerEntity;
+import com.sportverein.mapper.SpielerMapper;
+import com.sportverein.model.Spieler;
 import com.sportverein.repository.SpielerRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class SpielerService {
-    
-    @Autowired
-    private SpielerRepository spielerRepository;
-    
-    // Allgemeine Spieler-Methoden
+
+    private final SpielerRepository repository;
+
+    public SpielerService(SpielerRepository repository) {
+        this.repository = repository;
+    }
+
+    // Alle Spieler abrufen
     public List<Spieler> getAllSpieler() {
-        return spielerRepository.findAll();
+        List<SpielerEntity> entities = repository.findAll();
+        return entities.stream()
+                .map(SpielerMapper::toModel)
+                .collect(Collectors.toList());
     }
-    
-    public Optional<Spieler> getSpielerById(Long id) {
-        return spielerRepository.findById(id);
+
+    // Spieler anhand der ID abrufen
+    public Spieler getSpielerById(Long id) {
+        SpielerEntity entity = repository.findById(id).orElse(null);
+        return SpielerMapper.toModel(entity);
     }
-    
-    public List<Spieler> getSpielerByMannschaft(Long mannschaftId) {
-        return spielerRepository.findByMannschaftId(mannschaftId);
+
+    // Neuen Spieler erstellen
+    public Spieler createSpieler(Spieler spieler) {
+        SpielerEntity entity = SpielerMapper.toEntity(spieler);
+        SpielerEntity savedEntity = repository.save(entity);
+        return SpielerMapper.toModel(savedEntity);
     }
-    
+
+    // Spieler aktualisieren
+    public Spieler updateSpieler(Long id, Spieler updatedSpieler) {
+        return repository.findById(id)
+                .map(entity -> {
+                    // Aktualisiere die grundlegenden Felder
+                    entity.setNachname(updatedSpieler.getNachname());
+                    entity.setVorname(updatedSpieler.getVorname());
+                    entity.setGeburtsdatum(updatedSpieler.getGeburtsdatum());
+                    entity.setGespielteSpiele(updatedSpieler.getGespielteSpiele());
+                    entity.setGesperrt(updatedSpieler.isGesperrt());
+                    entity.setVereinsbeitritt(updatedSpieler.getVereinsbeitritt());
+                    entity.setRoteKarten(updatedSpieler.getRoteKarten());
+                    entity.setGelbeKarten(updatedSpieler.getGelbeKarten());
+                    // Bei Bedarf: Aktualisiere weitere Felder, z. B. positionsspezifische Attribute.
+                    SpielerEntity savedEntity = repository.save(entity);
+                    return SpielerMapper.toModel(savedEntity);
+                })
+                .orElse(null);
+    }
+
+    // Spieler löschen
     public void deleteSpieler(Long id) {
-        spielerRepository.deleteById(id);
-    }
-    
-    // Torwart-spezifische Methoden
-    public List<Torwart> getAllTorwart() {
-        return spielerRepository.findAllTorwart();
-    }
-    
-    public Optional<Torwart> getTorwartById(Long id) {
-        return spielerRepository.findById(id)
-                .filter(spieler -> spieler instanceof Torwart)
-                .map(spieler -> (Torwart) spieler);
-    }
-    
-    public Torwart saveTorwart(Torwart torwart) {
-        return spielerRepository.save(torwart);
-    }
-    
-    // Verteidiger-spezifische Methoden
-    public List<Verteidiger> getAllVerteidiger() {
-        return spielerRepository.findAllVerteidiger();
-    }
-    
-    public Optional<Verteidiger> getVerteidigerById(Long id) {
-        return spielerRepository.findById(id)
-                .filter(spieler -> spieler instanceof Verteidiger)
-                .map(spieler -> (Verteidiger) spieler);
-    }
-    
-    public Verteidiger saveVerteidiger(Verteidiger verteidiger) {
-        return spielerRepository.save(verteidiger);
-    }
-    
-    // Mittelfeldspieler-spezifische Methoden
-    public List<Mittelfeldspieler> getAllMittelfeldspieler() {
-        return spielerRepository.findAllMittelfeldspieler();
-    }
-    
-    public Optional<Mittelfeldspieler> getMittelfeldspielerById(Long id) {
-        return spielerRepository.findById(id)
-                .filter(spieler -> spieler instanceof Mittelfeldspieler)
-                .map(spieler -> (Mittelfeldspieler) spieler);
-    }
-    
-    public Mittelfeldspieler saveMittelfeldspieler(Mittelfeldspieler mittelfeldspieler) {
-        return spielerRepository.save(mittelfeldspieler);
-    }
-    
-    // Stürmer-spezifische Methoden
-    public List<Stuermer> getAllStuermer() {
-        return spielerRepository.findAllStuermer();
-    }
-    
-    public Optional<Stuermer> getStuermerById(Long id) {
-        return spielerRepository.findById(id)
-                .filter(spieler -> spieler instanceof Stuermer)
-                .map(spieler -> (Stuermer) spieler);
-    }
-    
-    public Stuermer saveStuermer(Stuermer stuermer) {
-        return spielerRepository.save(stuermer);
+        repository.deleteById(id);
     }
 }

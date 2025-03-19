@@ -1,14 +1,24 @@
-FROM maven:3.8.4-openjdk-17-slim as build
+# Backend Dockerfile
+FROM maven:3.8.4-openjdk-17-slim AS build
 WORKDIR /workspace/app
 
+# Erst die Abhängigkeiten installieren (optimiert für Docker-Caching)
 COPY pom.xml .
+RUN mvn dependency:go-offline
+
+# Danach den Quellcode kopieren
 COPY src src
 
-RUN mvn clean package -DskipTests
+# Nun das Projekt bauen
+RUN mvn clean install -DskipTests
 
+# Zweiter Container für das Runtime-Environment
 FROM openjdk:17-slim
-
-RUN apt-get update && apt-get install -y wget && rm -rf /var/lib/apt/lists/*
+WORKDIR /app
 
 COPY --from=build /workspace/app/target/*.jar app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+
+# Port für Spring Boot App freigeben (nicht zwingend)
+EXPOSE 8080
+
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]

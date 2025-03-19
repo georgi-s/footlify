@@ -1,0 +1,11 @@
+FROM maven:3.8.4-openjdk-17-slim
+WORKDIR /workspace/app
+
+# Für JVM Debugging (deaktiviert)
+# ENV JAVA_TOOL_OPTIONS -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5007
+
+# Port für Spring Boot App und Debugging
+EXPOSE 8080 5007
+
+# Entwicklungsmodus mit automatischem Reload
+CMD ["sh", "-c", "mvn spring-boot:run -Dspring-boot.run.profiles=dev"]

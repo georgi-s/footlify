@@ -1,84 +1,61 @@
 package com.sportverein.controller;
 
-import com.sportverein.entity.Mannschaft;
-import com.sportverein.entity.Liga;
+import com.sportverein.dto.MannschaftDTO;
+import com.sportverein.mapper.MannschaftDTOMapper;
+import com.sportverein.mapper.MannschaftMapper;
+import com.sportverein.model.Mannschaft;
 import com.sportverein.service.MannschaftService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/mannschaften")
-@CrossOrigin(origins = "http://localhost:3000")
 public class MannschaftController {
 
-    @Autowired
-    private MannschaftService mannschaftService;
+    private final MannschaftService service;
 
+    public MannschaftController(MannschaftService service) {
+        this.service = service;
+    }
+
+    // GET /api/mannschaften - Alle Mannschaften abrufen
     @GetMapping
-    public List<Mannschaft> getAllMannschaften() {
-        return mannschaftService.getAllMannschaften();
+    public List<MannschaftDTO> getAllMannschaften() {
+        List<Mannschaft> mannschaften = service.getAllMannschaften();
+        return mannschaften.stream()
+                .map(MannschaftDTOMapper::toDTO)
+                .collect(Collectors.toList());
     }
 
+    // GET /api/mannschaften/{id} - Mannschaft anhand der ID abrufen
     @GetMapping("/{id}")
-    public ResponseEntity<Mannschaft> getMannschaftById(@PathVariable Long id) {
-        return mannschaftService.getMannschaftById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public MannschaftDTO getMannschaftById(@PathVariable Long id) {
+        Mannschaft mannschaft = service.getMannschaftById(id);
+        return MannschaftDTOMapper.toDTO(mannschaft);
     }
 
-    @GetMapping("/liga/{liga}")
-    public List<Mannschaft> getMannschaftenByLiga(@PathVariable String liga) {
-        try {
-            Liga ligaEnum = Liga.valueOf(liga.toUpperCase());
-            return mannschaftService.getMannschaftenByLiga(ligaEnum);
-        } catch (IllegalArgumentException e) {
-            return List.of();
-        }
-    }
-
-    @GetMapping("/name/{name}")
-    public ResponseEntity<Mannschaft> getMannschaftByName(@PathVariable String name) {
-        Mannschaft mannschaft = mannschaftService.getMannschaftByName(name);
-        return mannschaft != null ? ResponseEntity.ok(mannschaft) : ResponseEntity.notFound().build();
-    }
-
+    // POST /api/mannschaften - Neue Mannschaft erstellen
     @PostMapping
-    public ResponseEntity<Mannschaft> createMannschaft(@RequestBody Mannschaft mannschaft) {
-        try {
-            return ResponseEntity.ok(mannschaftService.saveMannschaft(mannschaft));
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().build();
-        }
+    public MannschaftDTO createMannschaft(@RequestBody MannschaftDTO dto) {
+        Mannschaft mannschaft = MannschaftDTOMapper.toModel(dto);
+        Mannschaft saved = service.createMannschaft(mannschaft);
+        // return MannschaftDTOMapper.toDTO(saved);
+        return MannschaftDTOMapper.fromEntity(MannschaftMapper.toEntity(saved));
     }
 
+    // PUT /api/mannschaften/{id} - Mannschaft aktualisieren
     @PutMapping("/{id}")
-    public ResponseEntity<Mannschaft> updateMannschaft(@PathVariable Long id, @RequestBody Mannschaft mannschaftDetails) {
-        try {
-            return mannschaftService.getMannschaftById(id)
-                    .map(mannschaft -> {
-                        mannschaft.setName(mannschaftDetails.getName());
-                        mannschaft.setTrainer(mannschaftDetails.getTrainer());
-                        mannschaft.setSpieler(mannschaftDetails.getSpieler());
-                        mannschaft.setLiga(mannschaftDetails.getLiga());
-                        mannschaft.setFormation(mannschaftDetails.getFormation());
-                        return ResponseEntity.ok(mannschaftService.saveMannschaft(mannschaft));
-                    })
-                    .orElse(ResponseEntity.notFound().build());
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().build();
-        }
+    public MannschaftDTO updateMannschaft(@PathVariable Long id, @RequestBody MannschaftDTO dto) {
+        Mannschaft mannschaft = MannschaftDTOMapper.toModel(dto);
+        Mannschaft updated = service.updateMannschaft(id, mannschaft);
+        return MannschaftDTOMapper.toDTO(updated);
     }
 
+    // DELETE /api/mannschaften/{id} - Mannschaft löschen
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteMannschaft(@PathVariable Long id) {
-        return mannschaftService.getMannschaftById(id)
-                .map(mannschaft -> {
-                    mannschaftService.deleteMannschaft(id);
-                    return ResponseEntity.ok().build();
-                })
-                .orElse(ResponseEntity.notFound().build());
+    public void deleteMannschaft(@PathVariable Long id) {
+        service.deleteMannschaft(id);
     }
 }

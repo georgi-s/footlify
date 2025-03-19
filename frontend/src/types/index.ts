@@ -1,53 +1,42 @@
+// src/types/index.ts
+export * from "./types";
+
+// API Typen für Frontend-Komponenten
+
+// Backend Formation-Entity
+export interface FormationEntity {
+  id: number;
+  bezeichnung: string;
+  verteidigerAnzahl: number;
+  mittelfeldspielerAnzahl: number;
+  stuermerAnzahl: number;
+}
+
+// Backend Liga-Entity
+export interface LigaEntity {
+  id: number;
+  name: string;
+  saison?: string;
+}
+
+// Spieler von Backend
 export interface Spieler {
-    id: number;
-    name: string;
-    alter: number;
-    gehalt: number;
-    trikotnummer: number;
-    position: string;
-    mannschaftId?: number;
+  id: number;
+  name: string;
+  position: string;
+  bewertung?: number;
+  alter: number;
+  gehalt: number;
+  trikotnummer: number;
+  mannschaftId?: number;
 }
 
-export interface Torwart extends Spieler {
-    reaktion: number;
-    fangsicherheit: number;
-}
-
-export interface Verteidiger extends Spieler {
-    zweikampfstaerke: number;
-    kopfballstaerke: number;
-}
-
-export interface Mittelfeldspieler extends Spieler {
-    passgenauigkeit: number;
-    ausdauer: number;
-}
-
-export interface Stuermer extends Spieler {
-    schusskraft: number;
-    technik: number;
-}
-
+// Mannschaft von Backend
 export interface Mannschaft {
-    id: number;
-    name: string;
-    spieler: Spieler[];
-    ligaId?: number;
-    formationId?: number;
-}
-
-export interface Liga {
-    id: number;
-    name: string;
-    land: string;
-    mannschaften: Mannschaft[];
-}
-
-export interface Formation {
-    id: number;
-    name: string;
-    verteidiger: number;
-    mittelfeldspieler: number;
-    stuermer: number;
-    mannschaftId?: number;
+  id: number;
+  name: string;
+  trainer: string;
+  formation: FormationEntity | null;
+  liga: LigaEntity | null;
+  spieler?: Spieler[];
 }

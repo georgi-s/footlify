@@ -1,50 +1,59 @@
-version: '3.8'
+version: "3.8"
 
 services:
   db:
-    image: postgres:15-alpine
+    image: postgres:14-alpine
     environment:
       POSTGRES_DB: sportverein
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
-      - "5439:5432"
+      - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 10s
+      test: ["CMD-SHELL", "pg_isready -U postgres -d sportverein"]
+      interval: 5s
       timeout: 5s
-      retries: 5
+      retries: 10
     restart: unless-stopped
     stop_grace_period: 1m
     stop_signal: SIGINT
+    networks:
+      - sportverein_network
 
   backend:
-    build: 
+    build:
       context: ./backend
       dockerfile: Dockerfile
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/sportverein
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/sportverein?connectTimeout=10
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
-      SPRING_JPA_HIBERNATE_DDL_AUTO: update
-      SPRING_JPA_SHOW_SQL: "true"
+      SPRING_JPA_HIBERNATE_DDL_AUTO: none
+      SPRING_JPA_SHOW_SQL: "false"
+      SPRING_PROFILES_ACTIVE: prod
     ports:
       - "8080:8080"
     depends_on:
       db:
         condition: service_healthy
     healthcheck:
-      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:8080/actuator/health || exit 1"]
+      test:
+        [
+          "CMD-SHELL",
+          "wget --no-verbose --tries=1 --spider http://localhost:8080/actuator/health || exit 1",
+        ]
       interval: 10s
       timeout: 5s
       retries: 5
       start_period: 60s
-    restart: unless-stopped
+    restart: always
+    networks:
+      - sportverein_network
 
   frontend:
-    build: 
+    build:
       context: ./frontend
       dockerfile: Dockerfile
     ports:
@@ -54,11 +63,27 @@ services:
         condition: service_healthy
     environment:
       - REACT_APP_API_URL=http://localhost:8080/api
+    restart: always
+    networks:
+      - sportverein_network
+
+  adminer:
+    image: adminer
+    ports:
+      - "8081:8080"
+    environment:
+      - ADMINER_DEFAULT_SERVER=db
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - sportverein_network
 
 volumes:
   postgres_data:
     driver: local
 
 networks:
-  default:
+  sportverein_network:
     driver: bridge

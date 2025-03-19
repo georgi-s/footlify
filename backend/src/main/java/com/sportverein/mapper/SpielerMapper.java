@@ -1,86 +1,95 @@
 package com.sportverein.mapper;
 
-import com.sportverein.entity.Spieler;
-import com.sportverein.entity.Stuermer;
-import com.sportverein.model.SpielerDTO;
-import com.sportverein.model.StuermerDTO;
-import org.springframework.stereotype.Component;
+import com.sportverein.entity.SpielerEntity;
+import com.sportverein.model.Spieler;
+import com.sportverein.model.Mittelfeldspieler;
+import com.sportverein.model.Stuermer;
+import com.sportverein.model.Torwart;
+import com.sportverein.model.Verteidiger;
 
+import java.util.Date;
 
-@Component
 public class SpielerMapper {
-    
-    public SpielerDTO toDTO(Spieler entity) {
-        if (entity == null) return null;
+
+    public static SpielerEntity toEntity(Spieler model) {
+        if(model == null) return null;
         
-        SpielerDTO dto;
+        SpielerEntity entity = new SpielerEntity();
+        // ID konvertieren von int zu Long
+        entity.setId(model.getPlayerId() > 0 ? Long.valueOf(model.getPlayerId()) : null);
+        entity.setNachname(model.getNachname());
+        entity.setVorname(model.getVorname());
+        entity.setGeburtsdatum(model.getGeburtsdatum());
+        entity.setGespielteSpiele(model.getGespielteSpiele());
+        entity.setGesperrt(model.isGesperrt());
+        entity.setVereinsbeitritt(model.getVereinsbeitritt());
+        entity.setRoteKarten(model.getRoteKarten());
+        entity.setGelbeKarten(model.getGelbeKarten());
         
-        if (entity instanceof Stuermer) {
-            dto = toStuermerDTO((Stuermer) entity);
-        } else {
-            dto = new SpielerDTO();
+        // Position basierend auf dem Spielertyp setzen
+        if(model instanceof Mittelfeldspieler) {
+            entity.setPosition("Mittelfeld");
+        } else if(model instanceof Stuermer) {
+            entity.setPosition("Sturm");
+        } else if(model instanceof Torwart) {
+            entity.setPosition("Tor");
+        } else if(model instanceof Verteidiger) {
+            entity.setPosition("Verteidigung");
         }
-        
-        // Gemeinsame Felder mappen
-        dto.setId(entity.getId());
-        dto.setNachname(entity.getNachname());
-        dto.setVorname(entity.getVorname());
-        dto.setGeburtsdatum(entity.getGeburtsdatum());
-        dto.setGespielteSpiele(entity.getGespielteSpiele());
-        dto.setGesperrt(entity.isGesperrt());
-        dto.setVereinsbeitritt(entity.getVereinsbeitritt());
-        dto.setRoteKarten(entity.getRoteKarten());
-        dto.setGelbeKarten(entity.getGelbeKarten());
-        dto.setBewertung(entity.spielerBewertung());
-        
-        return dto;
-    }
-    
-    public StuermerDTO toStuermerDTO(Stuermer entity) {
-        if (entity == null) return null;
-        
-        StuermerDTO dto = new StuermerDTO();
-        dto.setGeschosseneTore(entity.getGeschosseneTore());
-        dto.setSchussgenauigkeit(entity.getSchussgenauigkeit());
-        dto.setChancenverwertung(entity.getChancenverwertung());
-        
-        return dto;
-    }
-    
-    public Spieler toEntity(SpielerDTO dto) {
-        if (dto == null) return null;
-        
-        Spieler entity;
-        
-        if (dto instanceof StuermerDTO) {
-            entity = toStuermerEntity((StuermerDTO) dto);
-        } else {
-            // Hier könnten weitere Spielertypen hinzugefügt werden
-            throw new IllegalArgumentException("Unbekannter Spielertyp");
-        }
-        
-        // Gemeinsame Felder mappen
-        entity.setId(dto.getId());
-        entity.setNachname(dto.getNachname());
-        entity.setVorname(dto.getVorname());
-        entity.setGeburtsdatum(dto.getGeburtsdatum());
-        entity.setGespielteSpiele(dto.getGespielteSpiele());
-        entity.setGesperrt(dto.isGesperrt());
-        entity.setVereinsbeitritt(dto.getVereinsbeitritt());
-        entity.setRoteKarten(dto.getRoteKarten());
-        entity.setGelbeKarten(dto.getGelbeKarten());
         
         return entity;
     }
-    
-    public Stuermer toStuermerEntity(StuermerDTO dto) {
-        if (dto == null) return null;
+
+    public static Spieler toModel(SpielerEntity entity) {
+        if(entity == null) return null;
         
-        Stuermer entity = new Stuermer();
-        entity.setGeschosseneTore(dto.getGeschosseneTore());
-        entity.setSchussgenauigkeit(dto.getSchussgenauigkeit());
-        entity.setChancenverwertung(dto.getChancenverwertung());
+        String position = entity.getPosition();
         
-        return entity;
+        // ID aus der Entity ermitteln (Long zu int konvertieren)
+        int playerId = entity.getId() != null ? entity.getId().intValue() : 0;
+        String nachname = entity.getNachname();
+        String vorname = entity.getVorname();
+        Date geburtsdatum = entity.getGeburtsdatum();
+        int gespielteSpiele = entity.getGespielteSpiele();
+        boolean gesperrt = entity.isGesperrt();
+        Date vereinsbeitritt = entity.getVereinsbeitritt();
+        int roteKarten = entity.getRoteKarten();
+        int gelbeKarten = entity.getGelbeKarten();
+        
+        // Basierend auf der Position den richtigen Spielertyp erstellen
+        if (position != null) {
+            switch (position) {
+                case "Mittelfeld":
+                    return new Mittelfeldspieler(playerId, nachname, vorname, geburtsdatum, 
+                            gespielteSpiele, gesperrt, vereinsbeitritt, roteKarten, gelbeKarten,
+                            0, 0, 0.0); // Default-Werte für Mittelfeldspieler-spezifische Attribute
+                
+                case "Sturm":
+                    return new Stuermer(playerId, nachname, vorname, geburtsdatum, 
+                            gespielteSpiele, gesperrt, vereinsbeitritt, roteKarten, gelbeKarten,
+                            0, 0.0, 0.0); // Default-Werte für Stürmer-spezifische Attribute
+                
+                case "Tor":
+                    return new Torwart(playerId, nachname, vorname, geburtsdatum, 
+                            gespielteSpiele, gesperrt, vereinsbeitritt, roteKarten, gelbeKarten,
+                            0, 0, 0.0); // Default-Werte für Torwart-spezifische Attribute
+                
+                case "Verteidigung":
+                    return new Verteidiger(playerId, nachname, vorname, geburtsdatum, 
+                            gespielteSpiele, gesperrt, vereinsbeitritt, roteKarten, gelbeKarten,
+                            0, 0, 0.0); // Default-Werte für Verteidiger-spezifische Attribute
+                
+                default:
+                    // Wir können hier keinen abstrakten Spieler erstellen, daher verwenden wir Mittelfeldspieler als Standard
+                    return new Mittelfeldspieler(playerId, nachname, vorname, geburtsdatum, 
+                            gespielteSpiele, gesperrt, vereinsbeitritt, roteKarten, gelbeKarten,
+                            0, 0, 0.0);
+            }
+        } else {
+            // Wenn keine Position gesetzt ist, verwenden wir Mittelfeldspieler als Standard
+            return new Mittelfeldspieler(playerId, nachname, vorname, geburtsdatum, 
+                    gespielteSpiele, gesperrt, vereinsbeitritt, roteKarten, gelbeKarten,
+                    0, 0, 0.0);
+        }
     }
 }

@@ -1,21 +1,26 @@
-FROM node:18-alpine as build
+# Frontend Build Stage
+FROM node:18-alpine AS build
 WORKDIR /app
 
-# Install dependencies
+# Umgebungsvariablen für bessere Performance
+ENV NODE_ENV=production
+
+# Abhängigkeiten installieren
 COPY package*.json ./
 RUN npm ci
 
-# Copy source and build
+# Quellcode kopieren und bauen
 COPY . .
-ENV REACT_APP_API_URL=http://localhost:8082/api
+ARG REACT_APP_API_URL=http://localhost:8080/api
+ENV REACT_APP_API_URL=$REACT_APP_API_URL
 RUN npm run build
 
-# Production environment
+# Production Stage mit Nginx
 FROM nginx:alpine
 COPY --from=build /app/build /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# Add healthcheck
+# Nginx Healthcheck
 HEALTHCHECK --interval=30s --timeout=3s \
   CMD wget --quiet --tries=1 --spider http://localhost:80/ || exit 1
 

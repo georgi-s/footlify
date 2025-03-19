@@ -1,26 +1,30 @@
 package com.sportverein.model;
 
-import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
+public enum Formation {
+    f442(4, 4, 2),
+    f532(5, 3, 2),
+    f433(4, 3, 3),
+    f343(3, 4, 3);
 
-@Entity
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-public class Formation {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private final int verteidigerAnzahl;
+    private final int mittelfeldspielerAnzahl;
+    private final int stuermerAnzahl;
 
-    private String name;
-    private int verteidiger;
-    private int mittelfeldspieler;
-    private int stuermer;
-    
-    @OneToOne(mappedBy = "formation")
-    private Mannschaft mannschaft;
+    Formation(int verteidiger, int mittelfeldspieler, int stuermer) {
+        this.verteidigerAnzahl = verteidiger;
+        this.mittelfeldspielerAnzahl = mittelfeldspieler;
+        this.stuermerAnzahl = stuermer;
+    }
+
+    public int getVerteidigerAnzahl() {
+        return verteidigerAnzahl;
+    }
+
+    public int getMittelfeldspielerAnzahl() {
+        return mittelfeldspielerAnzahl;
+    }
+
+    public int getStuermerAnzahl() {
+        return stuermerAnzahl;
+    }
 }

@@ -1,48 +1,56 @@
 package com.sportverein.model;
 
-import jakarta.persistence.*;
-import lombok.Data;
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-@Data
-@Entity
 public class Turnier {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
     private String ort;
-    private String datum;
+    private Date datum;
     private int insgPreisgeld;
-    
-    @ManyToMany
-    @JoinTable(
-        name = "turnier_teilnehmer",
-        joinColumns = @JoinColumn(name = "turnier_id"),
-        inverseJoinColumns = @JoinColumn(name = "mannschaft_id")
-    )
-    private List<Mannschaft> teilnehmer = new ArrayList<>();
-    
-    private String siegerMannschaft;
+    private List<Mannschaft> teilnehmer; // z. B. zwei Mannschaften
+    private Mannschaft siegerMannschaft;  // Wird zur Laufzeit bestimmt
 
-    public void siegerFestlegen(Mannschaft sieger) {
-        this.siegerMannschaft = sieger.getName();
-        preisGeldAuszahlen(sieger, insgPreisgeld);
+    public Turnier(String ort, Date datum, int insgPreisgeld, List<Mannschaft> teilnehmer) {
+        this.ort = ort;
+        this.datum = datum;
+        this.insgPreisgeld = insgPreisgeld;
+        this.teilnehmer = teilnehmer;
     }
     
-    private void preisGeldAuszahlen(Mannschaft team, int betrag) {
-        // In einer realen Anwendung würde hier die Preisgeldzahlung abgewickelt
-        System.out.println("Das Team " + team.getName() + " erhält ein Preisgeld in Höhe von " + betrag + " Euro!");
+    public void siegerFestlegen() {
+        // Implementiere hier die Logik zur Bestimmung des Siegers
+    }
+    
+    public void preisGeldAuszahlen(Mannschaft team, int betrag) {
+        // Implementiere hier die Logik zur Verteilung des Preisgeldes
     }
     
     public void turnierAusspielen() {
-        System.out.println("Das Turnier beginnt!");
-        // Hier könnte die Turnier-Logik implementiert werden
+        // Implementiere den Turnierablauf
     }
-
-    @Override
-    public String toString() {
+    
+    // Getter und Setter
+    public String getOrt() {
         return ort;
+    }
+    
+    public Date getDatum() {
+        return datum;
+    }
+    
+    public int getInsgPreisgeld() {
+        return insgPreisgeld;
+    }
+    
+    public List<Mannschaft> getTeilnehmer() {
+        return teilnehmer;
+    }
+    
+    public Mannschaft getSiegerMannschaft() {
+        return siegerMannschaft;
+    }
+    
+    public void setSiegerMannschaft(Mannschaft siegerMannschaft) {
+        this.siegerMannschaft = siegerMannschaft;
     }
 }
