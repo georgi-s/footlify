@@ -1,16 +1,18 @@
-import { Formation, Liga } from './types';
+import { Formation, Liga } from "./types";
 
 /**
  * DTO für die Kommunikation mit dem Backend bei Mannschaft-Operationen
  */
 export interface MannschaftDTO {
-  id?: number; // Optional, beim Erstellen nicht vorhanden
+  id?: number;
   name: string;
   trainer: string;
-  formation: Formation;
-  liga: Liga;
-  feldspielerIds?: number[]; // Optional, IDs der Feldspieler
-  auswechselspielerIds?: number[]; // Optional, IDs der Auswechselspieler
+  formation:
+    | Formation
+    | { id: number; bezeichnung: string /* weitere Eigenschaften */ };
+  liga: Liga | { id: number; name: string /* weitere Eigenschaften */ };
+  feldspielerIds?: number[];
+  auswechselspielerIds?: number[];
 }
 
 /**
@@ -18,9 +20,9 @@ export interface MannschaftDTO {
  */
 export function createDefaultMannschaftDTO(): MannschaftDTO {
   return {
-    name: '',
-    trainer: '',
+    name: "",
+    trainer: "",
     formation: Formation.f442,
-    liga: Liga.Bundesliga1
+    liga: Liga.Bundesliga1,
   };
 }
