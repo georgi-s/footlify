@@ -1,4 +1,4 @@
-#!/bin/bash
+mvn clean spring-boot:run#!/bin/bash
 
 echo "🚀 Starte Entwicklungsumgebung mit Docker..."
 echo "Dies startet die PostgreSQL-Datenbank, pgAdmin, Adminer und die Entwicklungsversionen von Backend und Frontend"

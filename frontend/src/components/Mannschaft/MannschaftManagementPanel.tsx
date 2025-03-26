@@ -34,7 +34,7 @@ import {
 import {
   mannschaftApi,
   spielerApi,
-  ApiResponseData,
+  type ApiResponseData,
 } from "../../services/api/index";
 import type {
   Spieler as ApiSpieler,
@@ -73,17 +73,23 @@ export type FrontendMannschaft = {
 // Konvertierungsfunktionen
 const convertApiSpielerToSpieler = (
   apiSpieler: ApiSpieler
-): FrontendSpieler => ({
-  id: apiSpieler.id,
-  vorname: apiSpieler.name.split(" ")[0],
-  nachname: apiSpieler.name.split(" ")[1] || "",
-  position: apiSpieler.position,
-  bewertung: apiSpieler.bewertung || 75, // Default Bewertung falls nicht vorhanden
-  alter: apiSpieler.alter,
-  gehalt: apiSpieler.gehalt,
-  trikotnummer: apiSpieler.trikotnummer,
-  mannschaftId: apiSpieler.mannschaftId,
-});
+): FrontendSpieler => {
+  // Add a null check for the name property
+  const fullName = apiSpieler.name || "";
+  const nameParts = fullName.split(" ");
+
+  return {
+    id: apiSpieler.id,
+    vorname: nameParts[0] || "",
+    nachname: nameParts[1] || "",
+    position: apiSpieler.position,
+    bewertung: apiSpieler.bewertung || 75, // Default Bewertung falls nicht vorhanden
+    alter: apiSpieler.alter,
+    gehalt: apiSpieler.gehalt,
+    trikotnummer: apiSpieler.trikotnummer,
+    mannschaftId: apiSpieler.mannschaftId,
+  };
+};
 
 const convertApiMannschaftToMannschaft = (
   apiMannschaft: ApiMannschaft
@@ -144,7 +150,7 @@ const MannschaftManagementPanel: React.FC = () => {
 
   useEffect(() => {
     if (!id) return;
-    
+
     // Lade Daten der spezifischen Mannschaft
     const fetchMannschaftData = async () => {
       setIsLoading(true);
@@ -152,22 +158,32 @@ const MannschaftManagementPanel: React.FC = () => {
         // Hole die spezifische Mannschaft mit der ID aus der URL
         const mannschaftResponse = await mannschaftApi.getById(Number(id));
         const spielerResponse = await spielerApi.getAll();
-        
+
         // Konvertiere die Mannschaft
-        const convertedMannschaft = convertApiMannschaftToMannschaft(mannschaftResponse.data);
-        
+        const convertedMannschaft = convertApiMannschaftToMannschaft(
+          mannschaftResponse.data
+        );
+
         // Konvertiere alle Spieler
-        const convertedPlayers = spielerResponse.data.map(convertApiSpielerToSpieler);
-        
+        const convertedPlayers = spielerResponse.data.map(
+          convertApiSpielerToSpieler
+        );
+
         // Setze die selektierte Mannschaft
         setSelectedClub(convertedMannschaft);
-        
+
         // Setze die Spieler der Mannschaft
-        setTeamPlayers(convertedPlayers.filter(player => player.mannschaftId === Number(id)));
-        
+        setTeamPlayers(
+          convertedPlayers.filter(
+            (player) => player.mannschaftId === Number(id)
+          )
+        );
+
         // Setze die verfügbaren Spieler (die nicht zu einer Mannschaft gehören)
-        setAvailablePlayers(convertedPlayers.filter(player => !player.mannschaftId));
-        
+        setAvailablePlayers(
+          convertedPlayers.filter((player) => !player.mannschaftId)
+        );
+
         // Hole alle Mannschaften für die Dropdown-Liste
         const clubsResponse = await mannschaftApi.getAll();
         setClubs(clubsResponse.data.map(convertApiMannschaftToMannschaft));
@@ -178,7 +194,7 @@ const MannschaftManagementPanel: React.FC = () => {
           description: `Die Mannschaft mit der ID ${id} konnte nicht geladen werden.`,
           variant: "destructive",
         });
-        navigate('/mannschaften'); // Zurück zur Übersicht navigieren
+        navigate("/mannschaften"); // Zurück zur Übersicht navigieren
       } finally {
         setIsLoading(false);
       }

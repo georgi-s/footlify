@@ -1,17 +1,12 @@
 "use client";
 
 import React from "react";
+import { TableCell } from "../../components/ui/table";
+import { Button } from "../../components/ui/button";
+import { Edit, Trash2, Eye } from "lucide-react";
 import { motion } from "framer-motion";
-import { TableCell } from "../ui/table";
-import { Shield, Edit, Trash2, ChevronRight, Briefcase } from "lucide-react";
-import { Badge } from "../ui/badge";
-import {
-  getFormationName,
-  getLigaName,
-  getLigaBadgeColor,
-} from "../../utils/mannschaftUtils";
-import { Button } from "../ui/button";
 import type { MannschaftDTO } from "../../types/MannschaftDTO";
+import { Badge } from "../../components/ui/badge";
 
 type MannschaftTableRowProps = {
   mannschaft: MannschaftDTO;
@@ -28,57 +23,121 @@ const MannschaftTableRow: React.FC<MannschaftTableRowProps> = ({
   onDetails,
   index,
 }) => {
+  // Detaillierte Debug-Ausgabe, um zu sehen, was tatsächlich in den Daten enthalten ist
+  console.log("Mannschaft vollständig:", JSON.stringify(mannschaft, null, 2));
+  console.log("Formation:", mannschaft.formation);
+  console.log("Liga:", mannschaft.liga);
+
+  // Hilfsfunktion, um Formation sicher anzuzeigen
+  const getFormationDisplay = () => {
+    // Wenn formation undefined oder null ist
+    if (!mannschaft.formation) {
+      console.log("Formation ist null oder undefined");
+      return "Nicht festgelegt";
+    }
+
+    // Typprüfung mit any, um TypeScript-Fehler zu vermeiden
+    const formationObj = mannschaft.formation as any;
+    console.log("Formation als any:", formationObj);
+
+    // Wenn formation ein Objekt mit bezeichnung ist
+    if (typeof formationObj === "object" && formationObj !== null) {
+      console.log("Formation ist ein Objekt");
+      if (formationObj.bezeichnung) {
+        console.log("Formation hat bezeichnung:", formationObj.bezeichnung);
+        return formationObj.bezeichnung;
+      }
+    }
+
+    // Wenn formation ein String ist
+    if (typeof formationObj === "string") {
+      console.log("Formation ist ein String:", formationObj);
+      // Entferne das "f" am Anfang und formatiere (z.B. "442" -> "4-4-2")
+      if (formationObj.startsWith("f") && /^f\d+$/.test(formationObj)) {
+        const formationDigits = formationObj.substring(1);
+        return formationDigits.split("").join("-");
+      }
+      return formationObj;
+    }
+
+    // Fallback
+    console.log("Formation Fallback verwendet");
+    return "Nicht festgelegt";
+  };
+
+  const getLigaDisplay = () => {
+    // Wenn liga undefined oder null ist
+    if (!mannschaft.liga) {
+      console.log("Liga ist null oder undefined");
+      return "Nicht festgelegt";
+    }
+
+    // Typprüfung mit any, um TypeScript-Fehler zu vermeiden
+    const ligaObj = mannschaft.liga as any;
+    console.log("Liga als any:", ligaObj);
+
+    // Wenn liga ein Objekt mit name ist
+    if (typeof ligaObj === "object" && ligaObj !== null) {
+      console.log("Liga ist ein Objekt");
+      if (ligaObj.name) {
+        console.log("Liga hat name:", ligaObj.name);
+        return ligaObj.name;
+      }
+    }
+
+    // Wenn liga ein String ist
+    if (typeof ligaObj === "string") {
+      console.log("Liga ist ein String:", ligaObj);
+      // Formatiere den Enum-Wert für die Anzeige
+      if (ligaObj === "Bundesliga1") return "1. Bundesliga";
+      if (ligaObj === "Bundesliga2") return "2. Bundesliga";
+      if (ligaObj === "Bundesliga3") return "3. Liga";
+      return ligaObj;
+    }
+
+    // Fallback
+    console.log("Liga Fallback verwendet");
+    return "Nicht festgelegt";
+  };
+
+  // Direkte Anzeige der Werte für Debugging
+  const formationDisplay = getFormationDisplay();
+  const ligaDisplay = getLigaDisplay();
+
+  console.log("Formation Display:", formationDisplay);
+  console.log("Liga Display:", ligaDisplay);
+
   return (
     <motion.tr
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, delay: index * 0.05 }}
-      className="hover:bg-slate-100/40 dark:hover:bg-slate-800/40 transition-colors border-b border-slate-200/50 dark:border-slate-700/50"
+      className="hover:bg-slate-50/50 dark:hover:bg-slate-800/50 transition-colors"
     >
       <TableCell className="font-medium">
-        <div className="relative w-10 h-10">
-          <div className="absolute inset-0 rounded-full bg-indigo-500/20 blur-sm"></div>
-          <div className="relative flex items-center justify-center w-full h-full bg-white dark:bg-slate-800 backdrop-blur-sm rounded-full border border-slate-200 dark:border-slate-700 transition-colors duration-300">
-            <span className="font-bold text-indigo-600 dark:text-indigo-400 transition-colors duration-300">
-              {mannschaft.id}
-            </span>
-          </div>
-        </div>
+        <Badge
+          variant="outline"
+          className="bg-blue-100/50 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300 border-blue-200 dark:border-blue-800/30"
+        >
+          {mannschaft.id}
+        </Badge>
       </TableCell>
-      <TableCell>
-        <div className="flex items-center gap-3">
-          <div className="bg-indigo-600 w-9 h-9 rounded-full flex items-center justify-center shadow-md shadow-indigo-500/20">
-            <Shield className="h-4 w-4 text-white" />
-          </div>
-          <span className="font-semibold text-slate-800 dark:text-slate-200 transition-colors duration-300">
-            {mannschaft.name}
-          </span>
-        </div>
-      </TableCell>
-      <TableCell>
-        <div className="flex items-center gap-2">
-          <div className="bg-slate-100 dark:bg-slate-700 w-6 h-6 rounded-full flex items-center justify-center transition-colors duration-300">
-            <Briefcase className="h-3.5 w-3.5 text-slate-500 dark:text-slate-400 transition-colors duration-300" />
-          </div>
-          <span className="text-slate-700 dark:text-slate-300 transition-colors duration-300">
-            {mannschaft.trainer}
-          </span>
-        </div>
-      </TableCell>
+      <TableCell>{mannschaft.name}</TableCell>
+      <TableCell>{mannschaft.trainer || "Kein Trainer"}</TableCell>
       <TableCell>
         <Badge
           variant="outline"
-          className="bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-900/30 dark:text-blue-300 dark:border-blue-800/50 font-medium px-2.5 py-1 transition-colors duration-300"
+          className="bg-green-100/50 text-green-800 dark:bg-green-900/30 dark:text-green-300 border-green-200 dark:border-green-800/30"
         >
-          {getFormationName(mannschaft.formation || "")}
+          {formationDisplay}
         </Badge>
       </TableCell>
       <TableCell>
         <Badge
           variant="outline"
-          className="bg-rose-50 text-rose-700 border-rose-200 dark:bg-rose-900/30 dark:text-rose-300 dark:border-rose-800/50 font-medium px-2.5 py-1 transition-colors duration-300"
+          className="bg-purple-100/50 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300 border-purple-200 dark:border-purple-800/30"
         >
-          {getLigaName(mannschaft.liga || "")}
+          {ligaDisplay}
         </Badge>
       </TableCell>
       <TableCell className="text-right">
@@ -86,8 +145,16 @@ const MannschaftTableRow: React.FC<MannschaftTableRowProps> = ({
           <Button
             variant="outline"
             size="sm"
+            onClick={() => onDetails(mannschaft)}
+            className="bg-indigo-100/50 text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-300 border-indigo-200 dark:border-indigo-800/30 hover:bg-indigo-200/50 dark:hover:bg-indigo-800/40"
+          >
+            <Eye className="h-4 w-4" />
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
             onClick={() => onEdit(mannschaft)}
-            className="border-slate-200 dark:border-slate-700 hover:bg-indigo-50 hover:text-indigo-600 dark:hover:bg-indigo-900/30 dark:hover:text-indigo-400 transition-colors duration-300"
+            className="bg-blue-100/50 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300 border-blue-200 dark:border-blue-800/30 hover:bg-blue-200/50 dark:hover:bg-blue-800/40"
           >
             <Edit className="h-4 w-4" />
           </Button>
@@ -95,17 +162,9 @@ const MannschaftTableRow: React.FC<MannschaftTableRowProps> = ({
             variant="outline"
             size="sm"
             onClick={() => onDelete(mannschaft)}
-            className="border-slate-200 dark:border-slate-700 hover:bg-rose-50 hover:text-rose-600 dark:hover:bg-rose-900/30 dark:hover:text-rose-400 transition-colors duration-300"
+            className="bg-red-100/50 text-red-800 dark:bg-red-900/30 dark:text-red-300 border-red-200 dark:border-red-800/30 hover:bg-red-200/50 dark:hover:bg-red-800/40"
           >
             <Trash2 className="h-4 w-4" />
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => onDetails(mannschaft)}
-            className="hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-300"
-          >
-            <ChevronRight className="h-4 w-4" />
           </Button>
         </div>
       </TableCell>
